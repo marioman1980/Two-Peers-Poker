@@ -2,5 +2,18 @@
 /* CSS Document */
 
 body{
-	background-color: #24B110
+	background-color: #009900
+}
+label{
+	color: #000000
+}
+
+#host-content{
+	background-color: #24B110;
+	height:200px
+}
+#host-name{
+	font-family: HP Simplified;
+	font-size:18px;
+	color: #000
 }

@@ -22,20 +22,22 @@
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
         <hr style="background-color: black; height: 1px; border: 0;">
-        <form class="form-horizontal">
-          <div class="form-group">
+        <div id="content">
+          <form class="form-horizontal">
+            <div class="form-group">
               <label class="col-sm-3 control-label">Enter Name: </label>
               <div class="col-sm-7">
-                  <input class="form-control" type="text" ><br>
-                  <button type="button" class="btn-sm">Host Game</button>
-                  <button type="button" class="btn-sm">Join Game</button>                  
+                <input id="user-name" class="form-control" type="text"><br>
+                <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
+                <button type="button" class="btn-sm">Join Game</button>                  
               </div>       
-          </div>
-            
-        </form>
+            </div>            
+          </form>
+        </div>
 
       </div>  
     </div>
-</div>
+	</div>
+  <script src="js/test.js"></script>
 </body>
 </html>
