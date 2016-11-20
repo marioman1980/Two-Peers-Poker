@@ -8,12 +8,27 @@ label{
 	color: #000000
 }
 
-#host-content{
+.player-content{
 	background-color: #24B110;
-	height:200px
+	height:200px;
+  position:absolute;
+  width: 100%;
+  visibility: hidden
 }
-#host-name{
+.player-name{
 	font-family: HP Simplified;
 	font-size:18px;
 	color: #000
+}
+
+#choosePlayer{
+/*  visibility: hidden*/
+}
+
+.hide-content{
+  visibility: hidden
+}
+
+.show-content{
+  visibility: visible
 }

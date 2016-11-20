@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Two Peers</title>
-<script
+  <title>Two Peers</title>
+  <script data-main="js/config" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.js"></script>  
+  <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>  
@@ -23,21 +24,38 @@
       <div class="col-sm-8 col-sm-offset-2">
         <hr style="background-color: black; height: 1px; border: 0;">
         <div id="content">
-          <form class="form-horizontal">
+          <div id="host-content" class="container-fluid player-content"><!--START--> 
+            <output id="host-name" class="player-name"></output>
+            <span id="display-id"></span><br>  
+          </div> 
+          <div id="guest-content" class="container-fluid player-content">
+            <output id="guest-name" class="player-name"></output>
+          </div>          <!--END-->         
+          <form id="choose-player" class="form-horizontal">
             <div class="form-group">
               <label class="col-sm-3 control-label">Enter Name: </label>
               <div class="col-sm-7">
                 <input id="user-name" class="form-control" type="text"><br>
                 <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
-                <button type="button" class="btn-sm">Join Game</button>                  
+                <button id="btn-join-game" type="button" class="btn-sm">Join Game</button>                
               </div>       
             </div>            
           </form>
         </div>
 
+        <button id="test-button">Button</button>
       </div>  
     </div>
 	</div>
+  <script>
+    require(['config'], function(){
+      require(['main']);
+    });
+  </script>  
+  <script>
+    var name = localStorage.twoPeersUserName;
+    $('#user-name').val(name);
+  </script>
   <script src="js/test.js"></script>
 </body>
 </html>
