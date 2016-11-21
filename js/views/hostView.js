@@ -13,7 +13,7 @@ define(['jquery'], function($){
 //      });       
 //    },
     displayId: function(hostId){
-      $('#host-name').html(hostId);
+      $('#display-id').append(hostId);
       console.log(hostId);
     }    
   }
