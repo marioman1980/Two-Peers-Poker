@@ -25,11 +25,15 @@
         <hr style="background-color: black; height: 1px; border: 0;">
         <div id="content">
           <div id="host-content" class="container-fluid player-content"><!--START--> 
-            <output id="host-name" class="player-name"></output>
-            <span id="display-id"></span><br>  
+            <div class="row">
+              <output id="host-name" class="col-sm-8 player-name"></output>
+              <output id="display-id" class="col-sm-4">ID: </output> 
+            </div>
           </div> 
           <div id="guest-content" class="container-fluid player-content">
-            <output id="guest-name" class="player-name"></output>
+            <div class="row">
+              <output id="guest-name" class="col-sm-8 player-name"></output>
+            </div>
           </div>          <!--END-->         
           <form id="choose-player" class="form-horizontal">
             <div class="form-group">
