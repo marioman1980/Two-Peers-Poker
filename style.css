@@ -15,7 +15,7 @@ label{
   width: 100%;
   visibility: hidden
 }
-.player-name{
+.player-name, #display-id{
 	font-family: HP Simplified;
 	font-size:18px;
 	color: #000
