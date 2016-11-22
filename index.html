@@ -32,14 +32,15 @@
           </div> 
           <div id="guest-content" class="container-fluid player-content">
             <div class="row">
-              <output id="guest-name" class="col-sm-8 player-name"></output>
+              <output id="guest-name" class="col-sm-7 player-name"></output>
+              <output class="col-sm-5"><span id="span-host-id">Host ID: </span><input id="input-host-id" type="text"/></output>
             </div>
           </div>          <!--END-->         
           <form id="choose-player" class="form-horizontal">
             <div class="form-group">
               <label class="col-sm-3 control-label">Enter Name: </label>
               <div class="col-sm-7">
-                <input id="user-name" class="form-control" type="text"><br>
+                <input id="user-name" class="form-control" type="text"/><br>
                 <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
                 <button id="btn-join-game" type="button" class="btn-sm">Join Game</button>                
               </div>       
