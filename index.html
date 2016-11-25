@@ -19,9 +19,10 @@
     <header>
       <img class="center-block img-responsive" src="images/computers.png" alt="Two Peers Header">
     </header>
-    
+    <button id="btn-send">Button</button>
+    <input id="msg-send"/>
     <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
+      <div class="col-sm-10 col-sm-offset-1">
         <hr style="background-color: black; height: 1px; border: 0;">
         <div id="content">
           <div id="host-content" class="container-fluid player-content"><!--START--> 
@@ -29,12 +30,22 @@
               <output id="host-name" class="col-sm-8 player-name"></output>
               <output id="display-id" class="col-sm-4">ID: </output> 
             </div>
+            <div class="row">
+              <output id="host-connection-established" class="col-sm-8 player-name"></output>
+            </div>            
           </div> 
           <div id="guest-content" class="container-fluid player-content">
             <div class="row">
               <output id="guest-name" class="col-sm-7 player-name"></output>
-              <output class="col-sm-5"><span id="span-host-id">Host ID: </span><input id="input-host-id" type="text"/></output>
+              <output class="col-sm-5">
+                <span id="span-host-id">Host ID: </span>
+                <input id="input-host-id" type="text"/>
+                <button id="btn-join-game" type="button">Join Game</button>
+              </output>
             </div>
+            <div class="row">
+              <output id="guest-connection-established" class="col-sm-8 player-name"></output>
+            </div>             
           </div>          <!--END-->         
           <form id="choose-player" class="form-horizontal">
             <div class="form-group">
@@ -42,14 +53,15 @@
               <div class="col-sm-7">
                 <input id="user-name" class="form-control" type="text"/><br>
                 <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
-                <button id="btn-join-game" type="button" class="btn-sm">Join Game</button>                
+                <button id="btn-join" type="button" class="btn-sm">Join Game</button>                
               </div>       
             </div>            
           </form>
         </div>
 
-        <button id="test-button">Button</button>
-      </div>  
+        
+      </div>
+      
     </div>
 	</div>
   <script>

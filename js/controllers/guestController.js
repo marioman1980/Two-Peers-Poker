@@ -2,11 +2,10 @@ define(['jquery', 'models/guestModel', 'views/guestView', 'functions'], function
   
 
   function start(){
-    $('#btn-join-game').click(function(){
-      functions.gameFunctions.prototype.loadTable('#user-name', '#guest-content', '#guest-name');
-      //hostView.render.prototype.displayId(myId);
-      
+    $('#btn-join').click(function(){
+      functions.gameFunctions.prototype.loadTable('#user-name', '#guest-content', '#guest-name');     
     }); 
+
 
 
   
