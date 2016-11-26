@@ -21,6 +21,7 @@
     </header>
     <button id="btn-send">Button</button>
     <input id="msg-send"/>
+    <div class="container">
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
         <hr style="background-color: black; height: 1px; border: 0;">
@@ -31,20 +32,24 @@
               <output id="display-id" class="col-sm-4">ID: </output> 
             </div>
             <div class="row">
-              <output id="host-connection-established" class="col-sm-8 player-name"></output>
+              <div id="host-inner-content">
+                <output id="host-connection-established" class="col-sm-8 player-name"></output>
+              </div>
             </div>            
           </div> 
           <div id="guest-content" class="container-fluid player-content">
             <div class="row">
               <output id="guest-name" class="col-sm-7 player-name"></output>
-              <output class="col-sm-5">
+              <output id="guest-enter-id" class="col-sm-5">
                 <span id="span-host-id">Host ID: </span>
                 <input id="input-host-id" type="text"/>
                 <button id="btn-join-game" type="button">Join Game</button>
               </output>
             </div>
             <div class="row">
-              <output id="guest-connection-established" class="col-sm-8 player-name"></output>
+              <div id="guest-inner-content">
+                <output id="guest-connection-established" class="col-sm-8 player-name"></output>
+              </div>
             </div>             
           </div>          <!--END-->         
           <form id="choose-player" class="form-horizontal">
@@ -62,6 +67,7 @@
         
       </div>
       
+    </div>
     </div>
 	</div>
   <script>

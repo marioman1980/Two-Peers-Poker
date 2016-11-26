@@ -25,15 +25,16 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
-      conn.on('data', handleMessage);      
+      conn.on('data', handleMessage); 
+      $('#guest-enter-id').addClass('remove');
     });
 
     
     peer.on('connection', function(connection){
-        conn = connection;
-        host_id = connection.peer;
-      //Whilst connection is open, any data sent will be handled by 'handleMessage' function
-        conn.on('data', handleMessage);
+      conn = connection;
+      host_id = connection.peer;
+    //Whilst connection is open, any data sent will be handled by 'handleMessage' function
+      conn.on('data', handleMessage);
       if ( connMade == false){
       //Display destination ID and name  
         alert(host_id);
@@ -43,7 +44,9 @@ define(['peerjs', 'connect'], function(peerjs, connect){
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', handleMessage);  
+        conn.on('data', handleMessage); 
+        $('#display-id').addClass('remove');
+        
         connMade = true;
       }
 

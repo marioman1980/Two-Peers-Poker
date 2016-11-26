@@ -32,3 +32,8 @@ label{
 .show-content{
   visibility: visible
 }
+
+.remove{
+/*  display: none;*/
+  visibility: hidden
+}
