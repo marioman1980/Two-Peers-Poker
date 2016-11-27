@@ -19,8 +19,10 @@
     <header>
       <img class="center-block img-responsive" src="images/computers.png" alt="Two Peers Header">
     </header>
+    <button id="show-host-card">Show host card</button>
     <button id="btn-send">Button</button>
     <input id="msg-send"/>
+    <output id="msg-receive"></output>
     <div class="container">
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
@@ -35,7 +37,10 @@
               <div id="host-inner-content">
                 <output id="host-connection-established" class="col-sm-8 player-name"></output>
               </div>
-            </div>            
+            </div>
+            <div class="row">
+              <div id="host-card"></div>
+            </div>
           </div> 
           <div id="guest-content" class="container-fluid player-content">
             <div class="row">
@@ -50,7 +55,10 @@
               <div id="guest-inner-content">
                 <output id="guest-connection-established" class="col-sm-8 player-name"></output>
               </div>
-            </div>             
+            </div> 
+            <div class="row">
+              <div id="card-back"></div>
+            </div>            
           </div>          <!--END-->         
           <form id="choose-player" class="form-horizontal">
             <div class="form-group">
