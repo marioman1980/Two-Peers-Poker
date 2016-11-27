@@ -34,6 +34,6 @@ label{
 }
 
 .remove{
-/*  display: none;*/
+  display: none;
   visibility: hidden
 }
