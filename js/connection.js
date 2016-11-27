@@ -7,7 +7,7 @@ define(['peerjs', 'connect'], function(peerjs, connect){
     var conn = null;  
     var connMade = false;
              // New peer connection with our heroku server
-            var peer = new Peer({　
+            peer = new Peer({　
                 host: 'twopeers.herokuapp.com',
                 secure: true,
                 port: 443,
@@ -21,14 +21,20 @@ define(['peerjs', 'connect'], function(peerjs, connect){
     });					
 
     	//On click, host peer ID used to establish connection and guest name sent to host peer
-    $('#btn-join-game').click(function(){
+    //$('#btn-join-game').click(function(){
+      
+    this.joinGame = function(){  
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
       conn.on('data', handleMessage); 
+      $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');
-    });
+    }
+      
+    //});
 
+    
     
     peer.on('connection', function(connection){
       conn = connection;
@@ -67,6 +73,21 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       sendMessage();
     });
   }
+  
+//  start.prototype = {
+//    joinGame: function(){
+//      name = $('#guest-name').val();
+//      host_id = $('#input-host-id').val();
+//      conn = peer.connect(host_id, {metadata: {'userName' : name}});
+//      conn.on('data', handleMessage); 
+//      $('#mmmm').addClass('remove');
+//      $('#guest-enter-id').addClass('remove');      
+//    }  
+//  }
+  
+  
+  
+  
   return {start:start};
 
   
