@@ -1,4 +1,4 @@
-define(['jquery', 'models/hostModel', 'views/hostView', 'functions'], function($, hostModel, hostView, functions){
+define(['jquery', 'models/hostModel', 'views/hostView', 'functions', 'models/model'], function($, hostModel, hostView, functions, model){
   
 
   function start(){
