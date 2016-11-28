@@ -1,9 +1,10 @@
-require(['peerjs', 'connection', 'controllers/hostController', 'controllers/guestController'], function(peerjs, connection, hostController, guestController){
+require(['peerjs', 'connection', 'controllers/hostController', 'controllers/guestController', 'models/model'], function(peerjs, connection, hostController, guestController, model){
 
 
   connection.start();
   hostController.start()
   guestController.start();
+  model.start();
 
 
   
