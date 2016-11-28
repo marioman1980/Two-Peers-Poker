@@ -27,6 +27,7 @@ var testCard;
       conn.on('data', handleCards); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');
+      
     }
 
     var a = 1;
@@ -45,18 +46,18 @@ var testCard;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
         conn.on('data', handleCards); 
         $('#display-id').addClass('remove');
-
+        
         connMade = true;
 
       }  
-      
+
       
     }); 
 
 
     
     function handleCards(data){
-      $(data.element).html(data.img);
+      $(data.element).append(data.img);
       //alert(data.crd);
     }
 
@@ -104,7 +105,10 @@ function selectCard(){
     function dealStartCards(){
       selectCard();
       sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">', crd: card});
-      sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'});   
+      sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'});  
+      selectCard();
+      sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">', crd: card});
+      sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'}); 
     }  
     
  
