@@ -24,7 +24,7 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
-      conn.on('data', handleMessage); 
+      //conn.on('data', handleMessage); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');
     }
@@ -34,7 +34,7 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       conn = connection;
       host_id = connection.peer;
     //Whilst connection is open, any data sent will be handled by 'handleMessage' function
-      conn.on('data', handleMessage);
+      //conn.on('data', handleMessage);
       if ( connMade == false){
       //Display destination ID and name  
         $('#host-connection-established').html("Connection established. You are playing " + conn.metadata.userName);
@@ -42,7 +42,7 @@ define(['peerjs', 'connect'], function(peerjs, connect){
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', handleMessage); 
+        //conn.on('data', handleMessage); 
         $('#display-id').addClass('remove');
         dealStartCards();
         connMade = true;
@@ -50,19 +50,23 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       
     }); 
 
-    function handleMessage(data){
+//    function handleMessage(data){
+//      $(data.element).html(data.img);
+//    }	
+    
+    function handleCards(data){
       $(data.element).html(data.img);
-    }	
+    }
 
   //Sending messages	
     function sendMessage(data){
       conn.send(data);
-      handleMessage(data);
+      handleCards(data);
     }
 
     
     function dealStartCards(){
-      sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/aceClub.JPG">'});
+      sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/4D.jpg">'});
       sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'});   
     }
 
