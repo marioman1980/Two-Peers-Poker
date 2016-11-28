@@ -44,13 +44,10 @@ define(['peerjs', 'connect'], function(peerjs, connect){
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
         conn.on('data', handleMessage); 
         $('#display-id').addClass('remove');
-        
+        dealStartCards();
         connMade = true;
       }  
-    $('#show-host-card').click(function(){
-      conn.on('data', handleMessage);
-      alert('hello');
-    });       
+      
     }); 
 
     function handleMessage(data){
@@ -63,29 +60,12 @@ define(['peerjs', 'connect'], function(peerjs, connect){
       handleMessage(data);
     }
 
-    $('#btn-send').click(function(){
+    
+    function dealStartCards(){
       sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/aceClub.JPG">'});
-      sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'});
-    });
-    
-    
-    
-//    function handleMessage(element, data){
-//      $(element).html(data);
-//    }	
-//
-//  //Sending messages	
-//    function sendMessage(element, data){
-//      //var data = document.getElementById('msg-send').value;
-//      conn.send(element, data);
-//      handleMessage(element, data);
-//    }
-//
-//    $('#btn-send').click(function(){
-//      //sendMessage('#host-card', '<img src="../Two-Peers-Poker/images/allCards/aceClub.JPG">');
-//      sendMessage('#card-back', '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">');
-//      //$('#card-back').html('<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">');
-//    });
+      sendMessage({element: '#card-back', img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'});   
+    }
+
       
   }
   
