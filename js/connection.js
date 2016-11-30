@@ -96,19 +96,51 @@ function selectCard(){
 		}
 	}	
 	card = rank + suit;	//Create card from rank & suit
+  image = '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'
   console.log(card);
 
 }    
  
-    
+  /*  Deal a card to each player.
+      Function takes the corresponding element for each player
+      and ouputs the relevant image */
+    function dealCard(primaryElement, secondaryElement){
+      selectCard();
+      console.log(value);
+      sendMessage({
+        element: primaryElement,
+        img: image
+      });
+      sendMessage({
+        element: secondaryElement,
+        img: image
+      });
+    }
     
     function dealStartCards(){
-      selectCard();
-      sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">', crd: card});
-      sendMessage({element: '#guest-host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'});  
-      selectCard();
-      sendMessage({element: '#host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">', crd: card});
-      sendMessage({element: '#guest-host-card', img: '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'}); 
+    /* Deal two cards to each player */
+      dealCard('#host-card', '#guest-host-card');
+      dealCard('#host-card', '#guest-host-card');
+      dealCard('#guest-card', '#host-guest-card');
+      dealCard('#guest-card', '#host-guest-card');      
+      
+//      selectCard();
+//      sendMessage({element: '#host-card', img: image, crd: card});
+//      sendMessage({element: '#guest-host-card', img: image});  
+//      console.log(value);
+//      selectCard();
+//      sendMessage({element: '#host-card', img: image, crd: card});
+//      sendMessage({element: '#guest-host-card', img: image}); 
+//      console.log(value);
+//    /* Deal guest two cards */
+//      selectCard();
+//      sendMessage({element: '#guest-card', img: image, crd: card});
+//      sendMessage({element: '#host-guest-card', img: image}); 
+//      console.log(value);
+//      selectCard();
+//      sendMessage({element: '#guest-card', img: image, crd: card});
+//      sendMessage({element: '#host-guest-card', img: image}); 
+//      console.log(value);
     }  
     
  
