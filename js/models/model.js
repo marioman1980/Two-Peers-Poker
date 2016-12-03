@@ -8,9 +8,10 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         suit,
         rank,
         card,
-        image;    
+        image,
+        dealtCard;    
     
-    this.selectCard = function(){
+    function selectCard(){
       value = Math.floor(Math.random() * cardRanks.length);//Random value
       suit = Math.floor(Math.random() * 4);//Random suit value
       for (i=0;i<13;i++){
@@ -41,7 +42,49 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         image: image
       }    
       return (dealtCard);
-    }     
+    }   
+    
+    handleData = function(data){
+      $(data.element).append(data.img);
+    }
+
+  //Sending messages	
+    function sendMessage(data){
+      //conn = connection.getConn();
+      conn.send(data);
+      handleData(data);
+    }
+   
+ 
+  /*  Deal a card to each player.
+      Function takes the corresponding element for each player
+      and ouputs the relevant image */
+    
+    function dealCard(primaryElement, secondaryElement){
+      dealtCard = selectCard();
+      sendMessage({
+        element: primaryElement,
+        img: dealtCard.image
+      });
+      sendMessage({
+        element: secondaryElement,
+        img: dealtCard.image
+      });
+    }
+    
+    function dealStartCards(){
+    /* Deal two cards to each player */
+      dealCard('#host-card', '#guest-host-card');
+      console.log(dealtCard.rank);
+      dealCard('#host-card', '#guest-host-card');
+      dealCard('#guest-card', '#host-guest-card');
+      dealCard('#guest-card', '#host-guest-card');      
+    } 
+    $('#show-host-card').click(function(){
+      dealStartCards();
+    });    
+    
+    
   }
   
   return {start:start}
