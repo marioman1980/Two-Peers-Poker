@@ -1,7 +1,8 @@
-define(['jquery'], function($){  
+define(['jquery', 'connection'], function($, connection){  
 
 /* Object concerned with host view */
   function render(){
+  
   }
   render.prototype = {
     displayId: function(hostId){
@@ -12,4 +13,5 @@ define(['jquery'], function($){
   
   return {render:render};
 
+  
 });

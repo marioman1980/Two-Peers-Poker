@@ -92,7 +92,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
 //      dealCard('#guest-card', '#host-guest-card');      
 //    }  
     
- 
+
     
     
     

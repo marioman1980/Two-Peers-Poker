@@ -1,4 +1,4 @@
-define(['jquery', 'models/model', 'views/view', 'functions'], function($, model, view, functions){
+define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], function($, connection, model, view, functions){
   
 
   function start(){
@@ -9,7 +9,11 @@ define(['jquery', 'models/model', 'views/view', 'functions'], function($, model,
     });  
     $('#btn-join').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');     
-    });     
+    }); 
+    $('#btn-join-game').click(function(){
+      connection.joinGame();
+    });       
+   
   }
   
 
