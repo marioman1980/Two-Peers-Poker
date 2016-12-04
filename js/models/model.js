@@ -44,13 +44,12 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       return (dealtCard);
     }   
     
-    handleData = function(data){
+    displayImage = function(data){
       $(data.element).append(data.img);
     }
 
   //Sending messages	
-    function sendMessage(data){
-      //conn = connection.getConn();
+    function sendMessage(data, handleData){
       conn.send(data);
       handleData(data);
     }
@@ -58,18 +57,17 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
  
   /*  Deal a card to each player.
       Function takes the corresponding element for each player
-      and ouputs the relevant image */
-    
+      and ouputs the relevant image */   
     function dealCard(primaryElement, secondaryElement){
       dealtCard = selectCard();
       sendMessage({
         element: primaryElement,
         img: dealtCard.image
-      });
+      }, displayImage);
       sendMessage({
         element: secondaryElement,
         img: dealtCard.image
-      });
+      }, displayImage);
     }
     
     function dealStartCards(){
@@ -85,7 +83,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
     });    
     
     
-  }
+  }/* END */
   
   return {start:start}
 });

@@ -5,13 +5,6 @@ define(['jquery'], function($){
     this.foo = 'bar'
   }
   render.prototype = {
-//    loadTable: function(userName, route, userNameOutput, hostId){
-//      var playerName = $(userName).val();
-//      localStorage.twoPeersUserName = playerName;
-//      $('#content').load(route, function(){
-//        $(userNameOutput).html(playerName);
-//      });       
-//    },
     displayId: function(hostId){
       $('#display-id').append(hostId);
       console.log(hostId);

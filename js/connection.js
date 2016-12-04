@@ -31,7 +31,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
-      conn.on('data', handleData); 
+      conn.on('data', displayImage); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');      
     }
@@ -41,7 +41,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       conn = connection;
       host_id = connection.peer;
     //Whilst connection is open, any data sent will be handled by 'handleMessage' function
-      //conn.on('data', handleData);
+      //conn.on('data', displayImage);
       if ( connMade == false){
       //Display destination ID and name  
         $('#host-connection-established').html("Connection established. You are playing " + conn.metadata.userName);
@@ -49,21 +49,21 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', handleData); 
+        conn.on('data', displayImage); 
         $('#display-id').addClass('remove');
         
         connMade = true;
       }        
     }); 
   
-//    function handleData(data){
+//    function displayImage(data){
 //      $(data.element).append(data.img);
 //    }
 //
 //  //Sending messages	
 //    function sendMessage(data){
 //      conn.send(data);
-//      handleData(data);
+//      displayImage(data);
 //    }
 //   
 // 
