@@ -10,7 +10,7 @@ label{
 
 .player-content{
 	background-color: #24B110;
-	height:200px;
+	height:auto;
   position:absolute;
   width: 100%;
   visibility: hidden

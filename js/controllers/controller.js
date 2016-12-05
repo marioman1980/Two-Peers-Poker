@@ -2,6 +2,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
   
 
   function start(){
+    
     $('#btn-host-game').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
       view.render.prototype.displayId(myId);  
@@ -12,6 +13,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
     }); 
     $('#btn-join-game').click(function(){
       connection.joinGame();
+      
     });       
    
   }

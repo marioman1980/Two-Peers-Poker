@@ -31,7 +31,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         }
       }	
       card = rank + suit;	//Create card from rank & suit
-      image = '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">'
+      image = '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">';
       console.log(card);
       
       var dealtCard = {
@@ -66,7 +66,8 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       }, displayImage);
       sendMessage({
         element: secondaryElement,
-        img: dealtCard.image
+        img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'
+        //img: dealtCard.image
       }, displayImage);
     }
     
@@ -78,7 +79,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealCard('#guest-card', '#host-guest-card');
       dealCard('#guest-card', '#host-guest-card');      
     } 
-    $('#show-host-card').click(function(){
+    $('#start-game').click(function(){
       dealStartCards();
     });    
     

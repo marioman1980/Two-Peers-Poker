@@ -51,6 +51,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
         conn.on('data', displayImage); 
         $('#display-id').addClass('remove');
+        $('#start-game').addClass('show-content');
         
         connMade = true;
       }        
