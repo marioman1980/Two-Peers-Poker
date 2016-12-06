@@ -10,6 +10,7 @@ label{
 
 .player-content{
 	background-color: #24B110;
+  min-height: 300px;
 	height:auto;
   position:absolute;
   width: 100%;
