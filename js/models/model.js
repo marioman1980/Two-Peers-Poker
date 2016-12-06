@@ -58,26 +58,31 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
   /*  Deal a card to each player.
       Function takes the corresponding element for each player
       and ouputs the relevant image */   
-    function dealCard(primaryElement, secondaryElement){
+    function dealCard(primaryElement, secondaryElement, faceUp){
       dealtCard = selectCard();
+      var faceUp = faceUp;
       sendMessage({
         element: primaryElement,
         img: dealtCard.image
       }, displayImage);
+      var image;
+      if (faceUp == true){image = dealtCard.image;}
+      else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
       sendMessage({
         element: secondaryElement,
-        img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'
+        img: image
+        //img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'
         //img: dealtCard.image
       }, displayImage);
     }
     
     function dealStartCards(){
     /* Deal two cards to each player */
-      dealCard('#host-card', '#guest-host-card');
+      dealCard('#host-card', '#guest-host-card', false);
       console.log(dealtCard.rank);
-      dealCard('#host-card', '#guest-host-card');
-      dealCard('#guest-card', '#host-guest-card');
-      dealCard('#guest-card', '#host-guest-card');      
+      dealCard('#host-card', '#guest-host-card', true);
+      dealCard('#guest-card', '#host-guest-card', false);
+      dealCard('#guest-card', '#host-guest-card', true);      
     } 
     $('#start-game').click(function(){
       dealStartCards();
