@@ -38,3 +38,7 @@ label{
   display: none;
   visibility: hidden
 }
+
+.btn-gameplay{
+  width: 80px
+}

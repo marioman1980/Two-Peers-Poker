@@ -76,7 +76,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       }, displayImage);
     }
     
-    function dealStartCards(){
+    this.dealStartCards = function(){
     /* Deal two cards to each player */
       dealCard('#host-card', '#guest-host-card', false);
       console.log(dealtCard.rank);
@@ -84,9 +84,8 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealCard('#guest-card', '#host-guest-card', false);
       dealCard('#guest-card', '#host-guest-card', true);      
     } 
-    $('#start-game').click(function(){
-      dealStartCards();
-    });    
+
+  
     
     
   }/* END */

@@ -33,7 +33,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
       conn.on('data', displayImage); 
       $('#mmmm').addClass('remove');
-      $('#guest-enter-id').addClass('remove');      
+      $('#guest-enter-id').addClass('remove');  
     }
 
     //var a = 1;
@@ -52,7 +52,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
         conn.on('data', displayImage); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
-        
+
         connMade = true;
       }        
     }); 
