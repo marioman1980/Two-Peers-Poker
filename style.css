@@ -16,6 +16,15 @@ label{
   width: 100%;
   visibility: hidden
 }
+#host-content{
+	background-color: #24B110;
+  min-height: 300px;
+	height:auto;
+  position:relative;
+  width: 100%;
+  visibility: hidden
+}
+
 .player-name, #display-id, #span-host-id{
 	font-family: HP Simplified;
 	font-size:18px;
