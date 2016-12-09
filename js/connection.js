@@ -34,6 +34,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       conn.on('data', displayImage); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
+      $('#choose-player').addClass('remove');  
     }
 
     //var a = 1;

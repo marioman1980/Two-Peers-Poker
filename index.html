@@ -28,7 +28,17 @@
       <div class="col-sm-10 col-sm-offset-1">
         <hr style="background-color: black; height: 1px; border: 0;">
         <div id="content">
-          <div id="host-content" class="container-fluid"><!--START--> 
+          <form id="choose-player" class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Enter Name: </label>
+              <div class="col-sm-7">
+                <input id="user-name" class="form-control" type="text"/><br>
+                <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
+                <button id="btn-join" type="button" class="btn-sm">Join Game</button>                
+              </div>       
+            </div>            
+          </form>          
+          <div id="host-content" class="container-fluid hide-content"><!--START--> 
             <div class="row">
               <output id="host-name" class="col-sm-8 player-name"></output>
               <output id="display-id" class="col-sm-4">ID: </output> 
@@ -54,7 +64,7 @@
               <button class="btn-gameplay">Fold</button>
             </div>              
           </div> 
-          <div id="guest-content" class="container-fluid player-content">
+          <div id="guest-content" class="container-fluid hide-content">
             <div class="row">
               <output id="guest-name" class="col-sm-7 player-name"></output>
               <div id="mmmm"><output id="guest-enter-id" class="col-sm-5">
@@ -82,16 +92,7 @@
               <button class="btn-gameplay">Fold</button>
             </div>             
           </div>          <!--END-->                  
-          <form id="choose-player" class="form-horizontal">
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Enter Name: </label>
-              <div class="col-sm-7">
-                <input id="user-name" class="form-control" type="text"/><br>
-                <button id="btn-host-game" type="button" class="btn-sm">Host Game</button>
-                <button id="btn-join" type="button" class="btn-sm">Join Game</button>                
-              </div>       
-            </div>            
-          </form>
+
         </div>
 
         

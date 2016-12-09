@@ -8,21 +8,19 @@ label{
 	color: #000000
 }
 
-.player-content{
-	background-color: #24B110;
-  min-height: 300px;
-	height:auto;
-  position:absolute;
-  width: 100%;
-  visibility: hidden
-}
 #host-content{
 	background-color: #24B110;
   min-height: 300px;
 	height:auto;
+  position:absolute;
+  width: 100%
+}
+#guest-content{
+	background-color: #24B110;
+  min-height: 300px;
+	height:auto;
   position:relative;
-  width: 100%;
-  visibility: hidden
+  width: 100%
 }
 
 .player-name, #display-id, #span-host-id{
@@ -45,7 +43,7 @@ label{
 
 .remove{
   display: none;
-  visibility: hidden
+/*  visibility: hidden*/
 }
 
 .btn-gameplay{
