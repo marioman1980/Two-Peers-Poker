@@ -1,11 +1,11 @@
 define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], function($, connection, model, view, functions){
   
 
-  function start(){
+  function controller(){
     
     $('#btn-host-game').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
-      view.render.prototype.displayId(myId);  
+      view.view.prototype.displayId(myId);  
       alert("Give your ID to a friend so they can \"Join\" your game");
     });  
     $('#btn-join').click(function(){
@@ -25,11 +25,12 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
       $('#host-card').append('<img src="../Two-Peers-Poker/images/allCards/AS.jpg">');
       $('#host-guest-card').append('<img src="../Two-Peers-Poker/images/allCards/AS.jpg">');
     });
+
   }
   
 
   
-  return{start:start}
+  return{controller}
   
   
 });

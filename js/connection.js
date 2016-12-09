@@ -1,6 +1,6 @@
 define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
   
-  function start(customConfig){
+  function connection(customConfig){
     
     conn = null;  
     var guest_id = null; 
@@ -106,7 +106,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
   }
   
   
-  return {start:start};
+  return {connection};
 
   
 });

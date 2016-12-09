@@ -1,6 +1,6 @@
 define(['jquery', 'connection', 'functions'], function($, connection, functions){
  
-  function start(){
+  function model(){
     
     var cardRanks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
     var cardSuits = ['C', 'D', 'H', 'S'];
@@ -90,5 +90,5 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
     
   }/* END */
   
-  return {start:start}
+  return {model}
 });

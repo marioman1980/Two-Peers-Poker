@@ -1,17 +1,17 @@
 define(['jquery', 'connection'], function($, connection){  
 
 /* Object concerned with host view */
-  function render(){
+  function view(){
 
   }
-  render.prototype = {
+  view.prototype = {
     displayId: function(hostId){
       $('#display-id').append(hostId);
       console.log(hostId);
     }    
   }
   
-  return {render:render};
+  return {view};
 
   
 });
