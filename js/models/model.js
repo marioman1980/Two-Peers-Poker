@@ -49,7 +49,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
     }
 
   //Sending messages	
-    function sendMessage(data, handleData){
+    sendMessage = function(data, handleData){
       conn.send(data);
       handleData(data);
     }

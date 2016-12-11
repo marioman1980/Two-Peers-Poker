@@ -17,6 +17,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
     $('#start-game').click(function(){
       model.dealStartCards();
       $('#start-game').addClass('remove');
+      //SEND MESSAGE HERE
     });      
    
     
