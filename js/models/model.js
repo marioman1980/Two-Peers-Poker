@@ -44,9 +44,12 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       return (dealtCard);
     }   
     
-    displayImage = function(data){
-      $(data.element).append(data.img);
-    }
+//     displayImage = function(data){
+//       $(data.element).append(data.img);
+//     }
+  sendData = function(data){
+    eval(data.doStuff);
+  }   
 
   //Sending messages	
     sendMessage = function(data, handleData){
@@ -62,18 +65,20 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealtCard = selectCard();
       var faceUp = faceUp;
       sendMessage({
-        element: primaryElement,
-        img: dealtCard.image
-      }, displayImage);
+        doStuff: "$('" + primaryElement + "').append('" + dealtCard.image +"')"
+//         element: primaryElement,
+//         img: dealtCard.image
+      }, sendData);
       var image;
       if (faceUp == true){image = dealtCard.image;}
       else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
       sendMessage({
-        element: secondaryElement,
-        img: image
+        doStuff: "$('" + secondaryElement + "').append('" + image +"')"
+//         element: secondaryElement,
+//         img: image
         //img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'
         //img: dealtCard.image
-      }, displayImage);
+      }, sendData);
     }
     
     this.dealStartCards = function(){
