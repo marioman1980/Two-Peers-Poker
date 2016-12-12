@@ -2,21 +2,21 @@
 /* CSS Document */
 
 body{
-	background-color: #009900
+	background-color: #ffffff
 }
 label{
 	color: #000000
 }
 
 #host-content{
-	background-color: #24B110;
+	background-color: #ffffff;
   min-height: 300px;
 	height:auto;
   position:absolute;
   width: 100%
 }
 #guest-content{
-	background-color: #24B110;
+	background-color: #ffffff;
   min-height: 300px;
 	height:auto;
   position:relative;
