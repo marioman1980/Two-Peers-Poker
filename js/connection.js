@@ -31,7 +31,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
-      conn.on('data', sendData); 
+      conn.on('data', displayImage); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
       $('#choose-player').addClass('remove');  
@@ -50,7 +50,7 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', sendData); 
+        conn.on('data', displayImage); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
 
