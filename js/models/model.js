@@ -90,7 +90,17 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealCard('#guest-card', '#host-guest-card', true);      
     } 
 
-  
+    function Player(playerName, playerType){
+      this.name = playerName;
+      this.type = playerType;
+      this.hand = [];
+      this.bank = 0;
+      
+    }    
+    
+    this.createPlayer = function(type){
+      player = new Player(localStorage.twoPeersUserName, type);
+    }
     
     
   }/* END */
