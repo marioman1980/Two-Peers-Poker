@@ -26,8 +26,10 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       name = $('#guest-name').val();
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
-/* Every time a message is sent to or from,
-displayImage function is used to handle data */
+/* 
+Every time a message is sent to or from, 
+displayImage function is used to handle data 
+*/
       conn.on('data', displayImage); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
