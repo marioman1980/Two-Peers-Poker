@@ -65,29 +65,17 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealtCard = selectCard();
       var faceUp = faceUp;
       sendMessage({
-<<<<<<< HEAD
         doStuff: "$('" + primaryElement + "').append('" + dealtCard.image +"')"
 //        element: primaryElement,
 //        img: dealtCard.image
-=======
-//        doStuff: "$('" + primaryElement + "').append('" + dealtCard.image +"')"
-        element: primaryElement,
-        img: dealtCard.image
->>>>>>> origin/master
       }, displayImage);
       var image;
       if (faceUp == true){image = dealtCard.image;}
       else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
       sendMessage({
-<<<<<<< HEAD
         doStuff: "$('" + secondaryElement + "').append('" + image +"')"
 //        element: secondaryElement,
 //        img: image
-=======
-        //doStuff: "$('" + secondaryElement + "').append('" + image +"')"
-        element: secondaryElement,
-        img: image
->>>>>>> origin/master
         //img: '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'
         //img: dealtCard.image
       }, displayImage);
