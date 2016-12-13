@@ -97,7 +97,7 @@ and ouputs the relevant image
       this.bank = 0;
       
     }       
-    this.createPlayer = function(type){
+    this.createPlayer = function(type){//SEE IF THIS IS WORKING ON ANDROID YET
       player = new Player(localStorage.twoPeersUserName, type);
     }
 
