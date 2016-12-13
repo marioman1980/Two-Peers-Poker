@@ -11,14 +11,22 @@ label{
 }
 
 #host-content{
+<<<<<<< HEAD
 /*	background-color: #24B110;*/
+=======
+	background-color: #ffffff;
+>>>>>>> origin/master
   min-height: 300px;
 	height:auto;
   position:absolute;
   width: 100%
 }
 #guest-content{
+<<<<<<< HEAD
 /*	background-color: #24B110;*/
+=======
+	background-color: #ffffff;
+>>>>>>> origin/master
   min-height: 300px;
 	height:auto;
   position:relative;
@@ -52,7 +60,10 @@ label{
 .btn-gameplay{
   width: 80px
 }
+<<<<<<< HEAD
 
 .go-red{
   	background-color: #ff0000
 }
+=======
+>>>>>>> origin/master
