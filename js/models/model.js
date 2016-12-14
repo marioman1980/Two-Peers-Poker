@@ -48,6 +48,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         card: card,
         image: image
       }    
+      deck.dealtCards.push(card);
       return (dealtCard);
     }   
     
@@ -87,7 +88,8 @@ and ouputs the relevant image
       console.log(dealtCard.rank);
       dealCard('#host-card', '#guest-host-card', true);
       dealCard('#guest-card', '#host-guest-card', false);
-      dealCard('#guest-card', '#host-guest-card', true);      
+      dealCard('#guest-card', '#host-guest-card', true);   
+      console.log(deck.dealtCards);
     } 
 /* Player object */
     function Player(playerName, playerType){
