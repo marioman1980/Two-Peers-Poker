@@ -1,25 +1,8 @@
 define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
   
-  function connection(){
+  function connection(customConfig){
 
-    // Call XirSys ICE servers CHECK twopeersmvc
-$.ajax({
-  url: "https://service.xirsys.com/ice",
-  data: {
-    ident: "marioman",
-    secret: "06711950-9ede-11e6-8268-76dec46168b1",
-    domain: "www.jameskamradcliffe.com",
-    application: "default",
-    room: "default",
-    secure: 1
-  },
-  success: function (data, status) {
-    // data.d is where the iceServers object lives
-    customConfig = data.d;
-    console.log(customConfig);
-  },
-  //async: false
-});
+
     
 
     conn = null;  
@@ -33,10 +16,11 @@ $.ajax({
         host: 'twopeers.herokuapp.com',
         secure: true,
         port: 443,
-        debug: 3
-        //config: customConfig
+        debug: 3,
+        config: customConfig
     });   
-
+    console.log(peer.options.config);
+    
 /* Peer created on page load */
     peer.on('open', function(id) {
       myId = id;

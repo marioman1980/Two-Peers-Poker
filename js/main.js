@@ -1,11 +1,30 @@
 require(['peerjs', 'connection', 'models/model', 'views/view', 'controllers/controller'], function(peerjs, connection, model, view, controller){
 
-  // and override the original config object
-var customConfig;
+  /* This object will take in an array of XirSys STUN / TURN servers
+   and override the original Peer config object in connection */   
+  var customConfig;
+
+      /* Call XirSys ICE servers */
+  $.ajax({
+    url: "https://service.xirsys.com/ice",
+    data: {
+      ident: "marioman",
+      secret: "06711950-9ede-11e6-8268-76dec46168b1",
+      domain: "www.jameskamradcliffe.com",
+      application: "default",
+      room: "default",
+      secure: 1
+    },
+    success: function (data, status) {
+      /* data.d is where the iceServers object lives */
+      customConfig = data.d;
+      console.log(customConfig);
+      /* Pass iceServers to connection */
+      connection.connection(customConfig);
+    },
+  });
+
   
-
-
-  connection.connection(customConfig);
   model.model();
   view.view();
   controller.controller();
