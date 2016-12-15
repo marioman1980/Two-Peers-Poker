@@ -8,8 +8,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       dealtCards: []
     }
     
-//    var cardRanks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
-//    var cardSuits = ['C', 'D', 'H', 'S'];
+
     var value,
         suit,
         rank,
@@ -47,11 +46,12 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         rank: rank,
         card: card,
         image: image
-      }    
+      }     
       deck.dealtCards.push(card);
       return (dealtCard);
-    }   
+    }   //END SELECT CARD
     
+/* Function handles data sent */    
     displayImage = function(data){
       eval(data.doStuff);
     }
@@ -85,27 +85,29 @@ and ouputs the relevant image
     this.dealStartCards = function(){
 /* Deal two cards to each player */
       dealCard('#host-card', '#guest-host-card', false);
-      console.log(dealtCard.rank);
+      player.hand.cards.push(dealtCard);
       dealCard('#host-card', '#guest-host-card', true);
+      player.hand.cards.push(dealtCard);
+      console.log(player.hand);        
       dealCard('#guest-card', '#host-guest-card', false);
-      dealCard('#guest-card', '#host-guest-card', true);   
-      console.log(deck.dealtCards);
+      sendMessage({doStuff: "console.log('moo')"}, displayImage);//HELLO
+      dealCard('#guest-card', '#host-guest-card', true);  
     } 
 /* Player object */
     function Player(playerName, playerType){
       this.name = playerName;
       this.type = playerType;
-      this.hand = [];
+      this.hand = new Hand();
       this.bank = 0;
       
     }       
-    this.createPlayer = function(type){//SEE IF THIS IS WORKING ON ANDROID YET
+    this.createPlayer = function(type){
       player = new Player(localStorage.twoPeersUserName, type);
     }
 
 /* Hand object */
     function Hand(){
-      
+      this.cards = [];
     }
     
   }/* END */
