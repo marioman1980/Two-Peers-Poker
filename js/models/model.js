@@ -90,7 +90,8 @@ and ouputs the relevant image
       player.hand.cards.push(dealtCard);
       console.log(player.hand);        
       dealCard('#guest-card', '#host-guest-card', false);
-      sendMessage({doStuff: "console.log('moo')"}, displayImage);//HELLO
+      cat = dealtCard.value;
+      sendMessage({doStuff: "console.log('" + (cat + 5) + "')"}, displayImage);/* DO ALL EVALUATING HOST SIDE */
       dealCard('#guest-card', '#host-guest-card', true);  
     } 
 /* Player object */
