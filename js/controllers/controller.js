@@ -19,7 +19,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
     $('#btn-join-game').click(function(){
       connection.joinGame();
     });       
-    $('#start-game').click(function(){
+    $('#start-game').click(function(){//TRY CREATING PLAYERS HERE
       model.dealStartCards();
       $('#start-game').addClass('remove');
       sendMessage({
