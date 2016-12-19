@@ -8,7 +8,16 @@ define(['jquery'], function($){
       $('#choose-player').addClass('hide-content');
       $(table).addClass('show-content');
       $(userNameOutput).html(playerName);
-    }    
+    },
+  /* Function handles data sent */     
+    handleData: function(data){
+      eval(data.doStuff);
+    },
+  /* Sending messages */	  
+    sendMessage: function(data, handleData){
+      conn.send(data);
+      handleData(data);      
+    }
   }
 
   
