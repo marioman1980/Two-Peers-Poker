@@ -2,20 +2,33 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
  
   function model(){
     
-    deck = {
-      cardRanks: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
-      cardSuits: ['C', 'D', 'H', 'S'],
-      dealtCards: []
-    }
-    
-
     var value,
         suit,
         rank,
         card,
         image,
-        dealtCard;    
-    
+        dealtCard;  
+  
+    deck = {
+      cardRanks: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
+      cardSuits: ['C', 'D', 'H', 'S'],
+      dealtCards: []
+    }
+ 
+/* Player object */
+    function Player(playerName, playerType){
+      this.name = playerName;
+      this.type = playerType;
+      this.hand = new Hand();
+      this.bank = 0;
+      
+    }       
+
+/* Hand object */
+    function Hand(){
+      this.cards = [];
+    }        
+        
     function selectCard(){
       value = Math.floor(Math.random() * deck.cardRanks.length);//Random value
       suit = Math.floor(Math.random() * 4);//Random suit value
@@ -47,72 +60,69 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         card: card,
         image: image
       }     
-      deck.dealtCards.push(card);
-      return (dealtCard);
+/* Check card doesn't exist in array of already dealt cards */      
+      notDealt = (deck.dealtCards.every(function(card){
+        return card != dealtCard.card;
+      }));
+        
+      console.log(notDealt);
+/* Only return card if it hasn't already been dealt */           
+      if (notDealt == true){
+        deck.dealtCards.push(card);
+        return (dealtCard);         
+      }
     }   //END SELECT CARD
-    
-/* Function handles data sent */    
-    displayImage = function(data){
-      eval(data.doStuff);
-    }
-
-/* Sending messages */	
-    sendMessage = function(data, handleData){
-      conn.send(data);
-      handleData(data);
-    }
-   
- 
+  
 /*  
 Deal a card to each player.
 Function takes the corresponding element for each player
 and ouputs the relevant image 
 */   
     function dealCard(primaryElement, secondaryElement, faceUp){
-      dealtCard = selectCard();
+ /* Call selectCard until a new card (one that hasn't already been dealt) is returned */      
+      do { dealtCard = selectCard(); }
+      while(dealtCard == undefined);
+
       var faceUp = faceUp;
-      sendMessage({
+      functions.gameFunctions.sendMessage({
         doStuff: "$('" + primaryElement + "').append('" + dealtCard.image +"')"
-      }, displayImage);
+      }, functions.gameFunctions.handleData);
       var image;
       if (faceUp == true){image = dealtCard.image;}
       else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
-      sendMessage({
+      functions.gameFunctions.sendMessage({
         doStuff: "$('" + secondaryElement + "').append('" + image +"')"
-      }, displayImage);
+      }, functions.gameFunctions.handleData);
     }
-    
-    this.dealStartCards = function(){
+  
+/* Game starts, players created and initial cards dealt */  
+    this.dealStartCards = function(){     
+      hostPlayer = new Player(hostName, 'host');
+      guestPlayer = new Player(guestName, 'guest');
+      alert(hostPlayer.type + ' ' + hostPlayer.name);
+      alert(guestPlayer.type + ' ' + guestPlayer.name);
+            
 /* Deal two cards to each player */
       dealCard('#host-card', '#guest-host-card', false);
-      player.hand.cards.push(dealtCard);
+      hostPlayer.hand.cards.push(dealtCard);
       dealCard('#host-card', '#guest-host-card', true);
-      player.hand.cards.push(dealtCard);
-      console.log(player.hand);        
+      hostPlayer.hand.cards.push(dealtCard);
+      console.log(hostPlayer.hand);        
       dealCard('#guest-card', '#host-guest-card', false);
-      sendMessage({doStuff: "dealtCard = '" + dealtCard.image + "'"}, displayImage);//STUCK HERE
-      sendMessage({doStuff: "console.log(dealtCard)"}, displayImage);
-      
-//      cat = dealtCard.value;
-//      sendMessage({doStuff: "console.log('" + (cat + 5) + "')"}, displayImage);/* DO ALL EVALUATING HOST SIDE */
+      guestPlayer.hand.cards.push(dealtCard);
+/* DO ALL EVALUATING HOST SIDE */
       dealCard('#guest-card', '#host-guest-card', true);  
-    } 
-/* Player object */
-    function Player(playerName, playerType){
-      this.name = playerName;
-      this.type = playerType;
-      this.hand = new Hand();
-      this.bank = 0;
-      
-    }       
-    this.createPlayer = function(type){
-      player = new Player(localStorage.twoPeersUserName, type);
-    }
+      guestPlayer.hand.cards.push(dealtCard);
+      console.log(guestPlayer.hand); 
 
-/* Hand object */
-    function Hand(){
-      this.cards = [];
-    }
+      console.log(deck.dealtCards);
+    }//END DEAL START CARDS
+    
+    
+    $('#btn-send').click(function(){
+      dealCard('#host-card', '#guest-host-card', true);
+    });    
+
     
   }/* END */
   

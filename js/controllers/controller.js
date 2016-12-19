@@ -8,23 +8,22 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
       view.view.prototype.displayId(myId);  
       alert("Give your ID to a friend so they can \"Join\" your game");
-      model.createPlayer('host');
-      alert(player.type + ' ' + player.name);
-    });  
-    $('#btn-join').click(function(){
-      functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');  
-      model.createPlayer('guest');
-      alert(player.type + ' ' + player.name);      
     }); 
+    
+    $('#btn-join').click(function(){
+      functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');     
+    }); 
+    
     $('#btn-join-game').click(function(){
       connection.joinGame();
-    });       
-    $('#start-game').click(function(){//TRY CREATING PLAYERS HERE
+    }); 
+    
+    $('#start-game').click(function(){
       model.dealStartCards();
       $('#start-game').addClass('remove');
-      sendMessage({
+      functions.gameFunctions.sendMessage({
         doStuff: '$("#test-game-controls").addClass("show-content")'
-      }, displayImage);
+      }, functions.gameFunctions.handleData);
     });   
     
     $('#btn-call').click(function(){
@@ -36,13 +35,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
       }
     });
     
-   
-    
-    //TEST CARDS
-    $('#btn-send').click(function(){
-      $('#host-card').append('<img src="../Two-Peers-Poker/images/allCards/AS.jpg">');
-      $('#host-guest-card').append('<img src="../Two-Peers-Poker/images/allCards/AS.jpg">');
-    });
+
 
   }
   

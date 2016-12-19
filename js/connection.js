@@ -1,9 +1,6 @@
-define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
+define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, connect, model, functions){
   
   function connection(customConfig){
-
-
-    
 
     conn = null;  
     var guest_id = null; 
@@ -34,9 +31,9 @@ define(['peerjs', 'connect', 'models/model'], function(peerjs, connect, model){
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
 /* 
 Every time a message is sent to or from, 
-displayImage function is used to handle data 
+handleData function is used to handle data 
 */
-      conn.on('data', displayImage); 
+      conn.on('data', functions.gameFunctions.handleData); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
       $('#choose-player').addClass('remove');  
@@ -46,13 +43,14 @@ displayImage function is used to handle data
       conn = connection;
       host_id = connection.peer;
       if ( connMade == false){
-/* Display name of opposing player */ 
+/* Display name of opposing player */        
         $('#host-connection-established').html("Connection established. You are playing " + conn.metadata.userName);
-        $('#guest-connection-established').html("Connection established. You are playing " + conn.metadata.userName);
+        guestName = conn.metadata.userName;
+        $('#guest-connection-established').html("Connection established. You are playing " + conn.metadata.userName);    
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', displayImage); 
+        conn.on('data', functions.gameFunctions.handleData); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
         connMade = true;
