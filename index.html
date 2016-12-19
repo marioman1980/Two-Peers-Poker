@@ -40,7 +40,8 @@
           </form>          
           <div id="host-content" class="container-fluid hide-content"><!--START--> 
             <div class="row">
-              <output id="host-name" class="col-sm-8 player-name"></output>
+              <output id="host-name" class="col-sm-2 player-name"></output>
+              <output id="host-bank" class="col-sm-6 player-name"></output>
               <output id="display-id" class="col-sm-4">ID: </output> 
             </div>
             <div class="row">
@@ -57,6 +58,10 @@
               <div id="host-guest-card" class="col-sm-10 col-sm-offset-1"></div>
             </div>  
             <br><br>
+            <div id="ho-bank">
+              <output id="host-opponent-name" class="col-sm-2 player-name"></output>
+              <output id="host-opponent-bank" class="col-sm-10 player-name"></output>            
+            </div>            
 <!--
             <div id="host-game-controls" class="game-controls col-sm-10 col-sm-offset-1">
               <button class="btn-gameplay">Call</button>
@@ -68,8 +73,9 @@
           </div> 
           <div id="guest-content" class="container-fluid hide-content">
             <div class="row">
-              <output id="guest-name" class="col-sm-7 player-name"></output>
-              <div id="mmmm"><output id="guest-enter-id" class="col-sm-5">
+              <output id="guest-name" class="col-sm-2 player-name"></output>
+              <output id="guest-bank" class="col-sm-6 player-name"></output>
+              <div id="mmmm"><output id="guest-enter-id" class="col-sm-4">
                 <span id="span-host-id">Host ID: </span>
                 <input id="input-host-id" type="text"/>
                 <button id="btn-join-game" type="button">Join Game</button>
@@ -87,6 +93,10 @@
               <div id="guest-host-card" class="col-sm-10 col-sm-offset-1"></div>
             </div>
             <br><br>
+            <div id="guest-opponent-bank">
+              <output id="go-name" class="col-sm-2 player-name"></output>
+              <output id="guest-opponent-bank" class="col-sm-10 player-name"></output>            
+            </div>
            
           </div>          <!--END-->                  
           <div id="test-game-controls" class="game-controls col-sm-10 col-sm-offset-1 hide-content">

@@ -20,7 +20,7 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       this.name = playerName;
       this.type = playerType;
       this.hand = new Hand();
-      this.bank = 0;
+      this.bank = 100;
       
     }       
 
