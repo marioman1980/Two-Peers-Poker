@@ -20,10 +20,30 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       this.name = playerName;
       this.type = playerType;
       this.hand = new Hand();
-      this.bank = 100;
-      
-    }       
-
+      this.bank = 100;  
+      this.updateBank = null;
+    } 
+    Player.prototype.setName = function(playerName){
+      this.name = playerName;
+    }
+    Player.prototype.setType = function(playerType){
+      this.type = playerType;
+    }
+/* Instantiate player objects and overload updateBank method */
+    hostPlayer = new Player();
+    hostPlayer.updateBank = function(){
+      $('#host-bank').html(hostPlayer.bank);
+      sendMessage({
+        doStuff: '$("#guest-opponent-bank").html("' + hostPlayer.bank + '")'
+      }, handleData);        
+    }
+    guestPlayer = new Player();
+    guestPlayer.updateBank = function(){
+      $('#host-opponent-bank').html(guestPlayer.bank);
+      sendMessage({
+        doStuff: '$("#guest-bank").html(' + guestPlayer.bank + ')'
+      }, handleData);        
+    }
 /* Hand object */
     function Hand(){
       this.cards = [];
@@ -84,21 +104,24 @@ and ouputs the relevant image
       while(dealtCard == undefined);
 
       var faceUp = faceUp;
-      functions.gameFunctions.sendMessage({
+      sendMessage({
         doStuff: "$('" + primaryElement + "').append('" + dealtCard.image +"')"
-      }, functions.gameFunctions.handleData);
+      }, handleData);
       var image;
       if (faceUp == true){image = dealtCard.image;}
       else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
-      functions.gameFunctions.sendMessage({
+      sendMessage({
         doStuff: "$('" + secondaryElement + "').append('" + image +"')"
-      }, functions.gameFunctions.handleData);
+      }, handleData);
     }
   
 /* Game starts, players created and initial cards dealt */  
     this.dealStartCards = function(){     
-      hostPlayer = new Player(hostName, 'host');
-      guestPlayer = new Player(guestName, 'guest');
+      hostPlayer.setName(hostName);
+      hostPlayer.setType('host');
+      guestPlayer.setName(guestName);
+      guestPlayer.setType('guest');      
+      //guestPlayer = new Player(guestName, 'guest');
       alert(hostPlayer.type + ' ' + hostPlayer.name);
       alert(guestPlayer.type + ' ' + guestPlayer.name);
             
