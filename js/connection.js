@@ -6,6 +6,8 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
     var guest_id = null; 
     var name = null;
     var connMade = false;
+    hostOpponentName = null;
+    guestOpponentName = null;
 
 /* Connection brokered through Heroku */
     
@@ -49,7 +51,7 @@ handleData function is used to handle data
         $('#guest-connection-established').html("Connection established. You are playing " + conn.metadata.userName);    
         hostName = $('#host-name').val();
         guest_id = host_id;
-        conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
+        //conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
         conn.on('data', handleData); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
