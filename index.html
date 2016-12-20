@@ -55,6 +55,11 @@
             </div>
             <br>
             <div class="row">
+              <div id="host-pot" class="col-sm-1 player-name"></div>
+              <div id="host-pot-value" class="col-sm-11 player-name"></div>
+            </div>
+            <br>
+            <div class="row">
               <div id="host-guest-card" class="col-sm-10 col-sm-offset-1"></div>
             </div>  
             <br><br>
@@ -62,14 +67,7 @@
               <output id="host-opponent-name" class="col-sm-2 player-name"></output>
               <output id="host-opponent-bank" class="col-sm-10 player-name"></output>            
             </div>            
-<!--
-            <div id="host-game-controls" class="game-controls col-sm-10 col-sm-offset-1">
-              <button class="btn-gameplay">Call</button>
-              <button class="btn-gameplay">Check</button>
-              <button class="btn-gameplay">Raise</button>
-              <button class="btn-gameplay">Fold</button>
-            </div>              
--->
+
           </div> 
           <div id="guest-content" class="container-fluid hide-content">
             <div class="row">
@@ -88,6 +86,11 @@
             </div> 
             <div class="row">
               <div id="guest-card" class="col-sm-10 col-sm-offset-1"></div>
+            </div> 
+            <br>
+            <div class="row">
+              <div id="guest-pot" class="col-sm-1 player-name"></div>
+              <div id="guest-pot-value" class="col-sm-11 player-name"></div>
             </div>            
             <div class="row">
               <div id="guest-host-card" class="col-sm-10 col-sm-offset-1"></div>
@@ -100,13 +103,16 @@
            
           </div>          <!--END-->                  
           <div id="test-game-controls" class="game-controls col-sm-10 col-sm-offset-1 hide-content">
+            <input id="bet-value" type="number"/>
+            <button id="btn-raise" class="btn-gameplay">Bet/Raise</button>
             <button id="btn-call" class="btn-gameplay">Call</button>
             <button id="btn-check" class="btn-gameplay">Check</button>
-            <button id="btn-raise" class="btn-gameplay">Raise</button>
             <button id="btn-fold" class="btn-gameplay">Fold</button>
           </div>  
         </div>
+        <div id="dialog">
 
+        </div>
         
       </div>
       

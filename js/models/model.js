@@ -1,4 +1,4 @@
-define(['jquery', 'connection', 'functions'], function($, connection, functions){
+define(['jquery', 'connection', 'functions', 'jqueryui'], function($, connection, functions, ui){
  
   function model(){
     
@@ -8,6 +8,8 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
         card,
         image,
         dealtCard;  
+    
+    pot = 0;
   
     deck = {
       cardRanks: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
@@ -21,14 +23,28 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       this.type = playerType;
       this.hand = new Hand();
       this.bank = 100;  
+      this.betAmount = 0;
       this.updateBank = null;
     } 
-    Player.prototype.setName = function(playerName){
-      this.name = playerName;
+    Player.prototype = {
+      setName: function(playerName){
+        this.name = playerName;
+      },
+      setType: function(playerType){
+        this.type = playerType;
+      },
+      bet: function(betAmount){
+        pot += betAmount;
+        this.bank -= betAmount;
+      }
     }
-    Player.prototype.setType = function(playerType){
-      this.type = playerType;
-    }
+//    Player.prototype.setName = function(playerName){
+//      this.name = playerName;
+//    }
+//    Player.prototype.setType = function(playerType){
+//      this.type = playerType;
+//    }
+    //Player.prototype.bet
 /* Instantiate player objects and overload updateBank method */
     hostPlayer = new Player();
     hostPlayer.updateBank = function(){
@@ -42,6 +58,17 @@ define(['jquery', 'connection', 'functions'], function($, connection, functions)
       $('#host-opponent-bank').html(guestPlayer.bank);
       sendMessage({
         doStuff: '$("#guest-bank").html(' + guestPlayer.bank + ')'
+      }, handleData);  
+      sendMessage({
+        doStuff: '$("#host-opponent-bank").html(' + guestPlayer.bank + ')'
+      }, handleData);       
+    }
+    updatePot = function(pot){
+      sendMessage({
+        doStuff: 'pot = ' + pot + '; $("#host-pot-value").html(' + pot + ')'
+      }, handleData); 
+      sendMessage({
+        doStuff: 'pot = ' + pot + '; $("#guest-pot-value").html(' + pot + ')'
       }, handleData);        
     }
 /* Hand object */
@@ -143,7 +170,7 @@ and ouputs the relevant image
     
     
     $('#btn-send').click(function(){
-      dealCard('#host-card', '#guest-host-card', true);
+
     });    
 
     

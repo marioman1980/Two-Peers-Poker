@@ -1,4 +1,4 @@
-define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], function($, connection, model, view, functions){
+define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jqueryui'], function($, connection, model, view, functions, ui){
   
 
   function controller(){
@@ -9,10 +9,12 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
       view.view.prototype.displayId(myId);  
       alert("Give your ID to a friend so they can \"Join\" your game");
+      localStorage.playerType = 'host';
     }); 
     //Join Game
     $('#btn-join').click(function(){
-      functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');     
+      functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');   
+      localStorage.playerType = 'guest';
     }); 
     //Connect to game
     $('#btn-join-game').click(function(){
@@ -31,19 +33,65 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
       $('#host-opponent-name').html(guestPlayer.name);  
       sendMessage({
         doStuff: '$("#guest-opponent-name").html("' + hostPlayer.name + '")'
-      }, handleData);  
+      }, handleData); 
+      $('#host-pot').html('Pot: ');  
+      sendMessage({
+        doStuff: '$("#guest-pot").html("Pot: ")'
+      }, handleData);       
+
+//      $( "#dialog" ).html('YOUR TURN');
+//      $( "#dialog" ).dialog();
+//      setTimeout(function() { $( "#dialog" ).dialog('close'); }, 3000); 
+      hostPlayer.betAmount = 10;
+      sendMessage({
+        doStuff: 'hostPlayer.betAmount = 10'
+      }, handleData);
+      guestPlayer.betAmount = 20;
+      hostPlayer.bet(hostPlayer.betAmount);
+      guestPlayer.bet(guestPlayer.betAmount);
       hostPlayer.updateBank();
-      guestPlayer.updateBank(); 
+      guestPlayer.updateBank();  
+      sendMessage({
+        doStuff: 'guestPlayer.bank = ' + guestPlayer.bank
+      }, handleData);      
+      updatePot(pot);    
     });   
     
     $('#btn-call').click(function(){
-      if(player.type == 'guest'){
-        alert('guest');
-      }
-      else if(player.type == 'host'){
-        alert('host');
+      if (localStorage.playerType == 'host'){
+        callAmount = guestPlayer.betAmount - hostPlayer.betAmount;
+        hostPlayer.bet(callAmount);
+        hostPlayer.updateBank();
+        updatePot(pot);      
+      }  
+      else{
+        callAmount = hostPlayer.betAmount;
+        guestPlayer.bet(callAmount);
+        
+        guestPlayer.updateBank();
+//        updatePot(pot);   
+        alert(callAmount);
+        alert(pot);
+        sendMessage({
+          doStuff: 'alert("hello")'
+        }, handleData);            
       }
     });
+    $('#btn-raise').click(function(){
+      if (localStorage.playerType == 'host'){
+        //betAmount = $('#bet-value').val();
+        hostPlayer.betAmount = parseInt($('#bet-value').val());
+        hostPlayer.bet(hostPlayer.betAmount);
+        hostPlayer.updateBank();
+        updatePot(pot);         
+      }
+    });
+    $('#btn-check').click(function(){
+      
+    });  
+    $('#btn-fold').click(function(){
+      
+    });      
     
 
 
