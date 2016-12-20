@@ -10,14 +10,14 @@ define(['jquery'], function($){
       $(userNameOutput).html(playerName);
     },
   /* Function handles data sent */     
-    handleData: function(data){
-      eval(data.doStuff);
-    },
-  /* Sending messages */	  
-    sendMessage: function(data, handleData){
-      conn.send(data);
-      handleData(data);      
-    }
+//    handleData: function(data){
+//      eval(data.doStuff);
+//    },
+//  /* Sending messages */	  
+//    sendMessage: function(data, handleData){
+//      conn.send(data);
+//      handleData(data);      
+//    }
   }
 
   

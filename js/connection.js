@@ -33,7 +33,7 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
 Every time a message is sent to or from, 
 handleData function is used to handle data 
 */
-      conn.on('data', functions.gameFunctions.handleData); 
+      conn.on('data', handleData); 
       $('#mmmm').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
       $('#choose-player').addClass('remove');  
@@ -50,13 +50,22 @@ handleData function is used to handle data
         hostName = $('#host-name').val();
         guest_id = host_id;
         conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
-        conn.on('data', functions.gameFunctions.handleData); 
+        conn.on('data', handleData); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
         connMade = true;
       }        
     });  
   }
+  /* Function handles data sent */  
+    handleData = function(data){
+      eval(data.doStuff);
+    },
+  /* Sending messages */	  
+    sendMessage = function(data, handleData){
+      conn.send(data);
+      handleData(data);      
+    }  
   
   
   return {connection};
