@@ -2,40 +2,38 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions'], func
   
 
   function controller(){
-
     
+
+    //Host Game
     $('#btn-host-game').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
       view.view.prototype.displayId(myId);  
       alert("Give your ID to a friend so they can \"Join\" your game");
     }); 
-    
+    //Join Game
     $('#btn-join').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#guest-content', '#guest-name');     
     }); 
-    
+    //Connect to game
     $('#btn-join-game').click(function(){
       connection.joinGame();
     }); 
     
+    /* Start Game. 
+    Cards dealt and player banks initiated
+    */
     $('#start-game').click(function(){
       model.dealStartCards();
       $('#start-game').addClass('remove');
-      functions.gameFunctions.sendMessage({
+      sendMessage({
         doStuff: '$("#test-game-controls").addClass("show-content")'
-      }, functions.gameFunctions.handleData);
-      $('#host-bank').html(hostPlayer.bank);
-      functions.gameFunctions.sendMessage({
-        doStuff: '$("#guest-bank").html(' + guestPlayer.bank + ')'
-      }, functions.gameFunctions.handleData);   
-      $('#host-opponent-name').html(guestPlayer.name);
-      $('#host-opponent-bank').html(guestPlayer.bank);//COOOOOOEEEEE
-//      functions.gameFunctions.sendMessage({
-//        doStuff: '$("#guest-opponent-name").html(' + hostPlayer.name + ')'
-//      }, functions.gameFunctions.handleData);   
-//      functions.gameFunctions.sendMessage({
-//        doStuff: '$("#guest-opponent-bank").html(' + hostPlayer.bank + ')'
-//      }, functions.gameFunctions.handleData);        
+      }, handleData);
+      $('#host-opponent-name').html(guestPlayer.name);  
+      sendMessage({
+        doStuff: '$("#guest-opponent-name").html("' + hostPlayer.name + '")'
+      }, handleData);  
+      hostPlayer.updateBank();
+      guestPlayer.updateBank(); 
     });   
     
     $('#btn-call').click(function(){
