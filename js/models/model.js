@@ -6,10 +6,10 @@ define(['jquery', 'connection', 'functions', 'jqueryui'], function($, connection
         suit,
         rank,
         card,
-        image,
-        dealtCard;  
+        image;  
     
     pot = 0;
+    dealtCard = null;
   
     deck = {
       cardRanks: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
@@ -125,7 +125,7 @@ Deal a card to each player.
 Function takes the corresponding element for each player
 and ouputs the relevant image 
 */   
-    function dealCard(primaryElement, secondaryElement, faceUp){
+    dealCard = function(primaryElement, secondaryElement, faceUp){
  /* Call selectCard until a new card (one that hasn't already been dealt) is returned */      
       do { dealtCard = selectCard(); }
       while(dealtCard == undefined);

@@ -74,6 +74,12 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         updatePot(pot); 
         if (startGame != true){
           //===!!!!!!!DEAL A CARD!!!!!===//
+          dealCard('#host-card', '#guest-host-card', true);
+          hostPlayer.hand.cards.push(dealtCard);
+          console.log(hostPlayer.hand);        
+          dealCard('#guest-card', '#host-guest-card', true);
+          guestPlayer.hand.cards.push(dealtCard);  
+          console.log(guestPlayer.hand); 
         }
       }  
       else{
