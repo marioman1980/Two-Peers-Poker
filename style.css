@@ -1,11 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
-/*
 body{
-	background-color: #ffffff
+	font-family: Tahoma
 }
-*/
 label{
 	color: #000000
 }
@@ -26,8 +24,8 @@ label{
 }
 
 .player-name, #display-id, #span-host-id{
-	font-family: HP Simplified;
-	font-size:18px;
+/*	font-family: HP Simplified;*/
+	font-size:16px;
 	color: #000
 }
 
