@@ -73,7 +73,8 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         hostPlayer.updateBank();
         updatePot(pot); 
         if (startGame != true){
-          //===!!!!!!!DEAL A CARD!!!!!===//
+          /*===!!!!!!!DEAL A CARD!!!!!===
+          ==========Need to deal a card if guest calls ========*/
           dealCard('#host-card', '#guest-host-card', true);
           hostPlayer.hand.cards.push(dealtCard);
           console.log(hostPlayer.hand);        
@@ -116,7 +117,12 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       }
     });
     $('#btn-check').click(function(){
-      
+      if (deck.dealtCards.length == 10){
+        alert('Showdown');
+      }
+      else{
+        
+      }
     });  
     $('#btn-fold').click(function(){
       
