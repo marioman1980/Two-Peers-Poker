@@ -92,8 +92,11 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         alert(callAmount);
         alert(pot);  
         updatePot(pot);
+        sendMessage({doStuff: 'guestCalls = true'}, handleData)
+        
       }
       startGame = false;
+
     });
     $('#btn-raise').click(function(){
       if (localStorage.playerType == 'host'){
@@ -125,7 +128,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       }
     });  
     $('#btn-fold').click(function(){
-      
+      alert(guestCalls);
     });      
     
 

@@ -8,6 +8,7 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
     var connMade = false;
     hostOpponentName = null;
     guestOpponentName = null;
+    guestCalls = null;
 
 /* Connection brokered through Heroku */
     
@@ -62,7 +63,20 @@ handleData function is used to handle data
   /* Function handles data sent */  
     handleData = function(data){
       eval(data.doStuff);
-    },
+      
+//      else if ((guestCalls == true) && (localStorage.playerType == 'host') ){
+//        alert(guestCalls);
+//        dealCard('#host-card', '#guest-host-card', true);
+//        guestCalls = false;
+//        hostPlayer.hand.cards.push(dealtCard);
+//        console.log(hostPlayer.hand);        
+//        dealCard('#guest-card', '#host-guest-card', true);
+//        guestPlayer.hand.cards.push(dealtCard);  
+//        console.log(guestPlayer.hand); 
+//        
+//      }
+      
+    }
   /* Sending messages */	  
     sendMessage = function(data, handleData){
       conn.send(data);
