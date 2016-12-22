@@ -170,9 +170,65 @@ and ouputs the relevant image
     
     
     $('#btn-send').click(function(){
-
+      evaluateHand();
     });    
 
+    
+    
+    /*========================================================
+    ===========EVALUATE HANDS===============================*/
+    
+evaluateHand = function(){
+  
+  hostPlayer.hand.cards[0] = {value: 5, suit: 'S'};
+  hostPlayer.hand.cards[1] = {value: 14, suit: 'S'};
+  hostPlayer.hand.cards[2] = {value: 3, suit: 'S'};
+  hostPlayer.hand.cards[3] = {value: 2, suit: 'S'};
+  hostPlayer.hand.cards[4] = {value: 4, suit: 'S'};
+
+/* Sort cards into ascending order */  
+  hostPlayer.hand.cards.sort(function(a, b){
+		if (a.value < b.value) return -1;
+		if (a.value > b.value) return 1;		
+		return 0;    
+  });
+
+/* If Ace is necessary for low straight, change value from 14 to 1 */  
+  if ((hostPlayer.hand.cards[0].value == 2) && (hostPlayer.hand.cards[1].value == 3) && (hostPlayer.hand.cards[2].value == 4) && (hostPlayer.hand.cards[3].value == 5) && (hostPlayer.hand.cards[4].value == 14)){  
+    hostPlayer.hand.cards[4].value = 1;
+    hostPlayer.hand.cards.sort(function(a, b){
+      if (a.value < b.value) return -1;
+      if (a.value > b.value) return 1;		
+      return 0;    
+    });    
+  }
+//  for (var i=0;i<5;i++){
+//    console.log(hostPlayer.hand.cards[i]);
+//  }
+  
+/* Check for flush */
+  var flush;
+  for (var i=1; i<5; i++){
+    
+    var j = i - 1;
+    if (hostPlayer.hand.cards[i].suit != hostPlayer.hand.cards[j].suit){
+      flush = false;
+      break
+    }
+    else{
+      flush = true;
+    }
+         
+  }
+  alert (flush);
+}    
+    
+    
+    
+    
+    
+    
+    
     
   }/* END */
   

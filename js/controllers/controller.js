@@ -128,7 +128,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       }
     });  
     $('#btn-fold').click(function(){
-      alert(guestCalls);
+      evaluateHand();
     });      
     
 
