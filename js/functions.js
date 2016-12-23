@@ -11,7 +11,7 @@ define(['jquery'], function($){
     },
   /* Function handles data sent */     
 //    handleData: function(data){
-//      eval(data.doStuff);
+//      eval(data.message);
 //    },
 //  /* Sending messages */	  
 //    sendMessage: function(data, handleData){

@@ -6,9 +6,7 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
     var guest_id = null; 
     var name = null;
     var connMade = false;
-    hostOpponentName = null;
-    guestOpponentName = null;
-    guestCalls = null;
+//    guestCalls = null;
 
 /* Connection brokered through Heroku */
     
@@ -59,10 +57,16 @@ handleData function is used to handle data
         connMade = true;
       }        
     });  
+   
+  /* Catch any errors related to the connection */  
+    peer.on('error', function(err){
+      alert(err);
+      location.reload();
+    });
   }
   /* Function handles data sent */  
     handleData = function(data){
-      eval(data.doStuff);
+      eval(data.message);
       
 //      else if ((guestCalls == true) && (localStorage.playerType == 'host') ){
 //        alert(guestCalls);

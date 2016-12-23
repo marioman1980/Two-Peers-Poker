@@ -8,9 +8,16 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
     //Host Game
     $('#btn-host-game').click(function(){
       functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
-      view.view.prototype.displayId(myId);  
-      alert("Give your ID to a friend so they can \"Join\" your game");
-      localStorage.playerType = 'host';
+      try{
+        $('#display-id').append(myId);
+        console.log(myId); 
+        alert("Give your ID to a friend so they can \"Join\" your game");
+        localStorage.playerType = 'host';        
+      }
+      catch(err){
+        alert(err);
+        location.reload();
+      }
     }); 
     //Join Game
     $('#btn-join').click(function(){
@@ -27,34 +34,34 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
     */
     $('#start-game').click(function(){
       startGame = true;
-      model.dealStartCards();
+      deck.dealStartCards();
       $('#start-game').addClass('remove');
       sendMessage({
-        doStuff: '$("#test-game-controls").addClass("show-content")'
+        message: '$("#test-game-controls").addClass("show-content")'
       }, handleData);
       $('#host-opponent-name').html(guestPlayer.name);  
       sendMessage({
-        doStuff: '$("#guest-opponent-name").html("' + hostPlayer.name + '")'
+        message: '$("#guest-opponent-name").html("' + hostPlayer.name + '")'
       }, handleData); 
       $('#host-pot').html('Pot: ');  
       sendMessage({
-        doStuff: '$("#guest-pot").html("Pot: ")'
+        message: '$("#guest-pot").html("Pot: ")'
       }, handleData);       
 
 //      $( "#dialog" ).html('YOUR TURN');
 //      $( "#dialog" ).dialog();
 //      setTimeout(function() { $( "#dialog" ).dialog('close'); }, 3000); 
       hostPlayer.betAmount = 10;
-      sendMessage({
-        doStuff: 'hostPlayer.betAmount = 10'
-      }, handleData);
+//      sendMessage({
+//        message: 'hostPlayer.betAmount = 10'
+//      }, handleData);
       guestPlayer.betAmount = 20;
       hostPlayer.bet(hostPlayer.betAmount);
       guestPlayer.bet(guestPlayer.betAmount);
       hostPlayer.updateBank();
       guestPlayer.updateBank();  
       sendMessage({
-        doStuff: 'guestPlayer.bank = ' + guestPlayer.bank
+        message: 'guestPlayer.bank = ' + guestPlayer.bank
       }, handleData);      
       updatePot(pot);    
     });   
@@ -75,11 +82,8 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         if (startGame != true){
           /*===!!!!!!!DEAL A CARD!!!!!===
           ==========Need to deal a card if guest calls ========*/
-          dealCard('#host-card', '#guest-host-card', true);
-          hostPlayer.hand.cards.push(dealtCard);
+          deck.dealCard(true);
           console.log(hostPlayer.hand);        
-          dealCard('#guest-card', '#host-guest-card', true);
-          guestPlayer.hand.cards.push(dealtCard);  
           console.log(guestPlayer.hand); 
         }
       }  
@@ -92,7 +96,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         alert(callAmount);
         alert(pot);  
         updatePot(pot);
-        sendMessage({doStuff: 'guestCalls = true'}, handleData)
+        sendMessage({message: 'guestCalls = true'}, handleData)
         
       }
       startGame = false;
@@ -104,7 +108,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         hostPlayer.betAmount = parseInt($('#bet-value').val());
         hostPlayer.bet(hostPlayer.betAmount);
         sendMessage({
-          doStuff: 'hostPlayer.betAmount = ' + hostPlayer.betAmount
+          message: 'hostPlayer.betAmount = ' + hostPlayer.betAmount
         }, handleData);        
         hostPlayer.updateBank();
         updatePot(pot);         
@@ -113,7 +117,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         guestPlayer.betAmount = parseInt($('#bet-value').val());
         guestPlayer.bet(guestPlayer.betAmount);
         sendMessage({
-          doStuff: 'guestPlayer.betAmount = ' + guestPlayer.betAmount
+          message: 'guestPlayer.betAmount = ' + guestPlayer.betAmount
         }, handleData);         
         guestPlayer.updateBank();
         updatePot(pot);
@@ -128,7 +132,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       }
     });  
     $('#btn-fold').click(function(){
-      evaluateHand();
+      deck.dealCard();
     });      
     
 
