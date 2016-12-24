@@ -7,16 +7,16 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
     
     //Host Game
     $('#btn-host-game').click(function(){
-      functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
+      
       try{
         $('#display-id').append(myId);
+        functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
         console.log(myId); 
         alert("Give your ID to a friend so they can \"Join\" your game");
         localStorage.playerType = 'host';        
       }
       catch(err){
         alert(err);
-        location.reload();
       }
     }); 
     //Join Game
@@ -85,6 +85,23 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
           deck.dealCard(true);
           console.log(hostPlayer.hand);        
           console.log(guestPlayer.hand); 
+        }
+        if (hostPlayer.hand.cards.length == 5){
+          $( "#dialog" ).html('SHOWDOWN');
+          $( "#dialog" ).dialog();
+          setTimeout(function() { $( "#dialog" ).dialog('close'); }, 3000); 
+          hostScore = hostPlayer.getScore();
+          guestScore = guestPlayer.getScore();
+          console.log(hostScore);
+          console.log(guestScore);
+          if (hostScore > guestScore){
+            alert('Host wins');
+            potToBank(hostPlayer);
+          }
+          else{
+            alert('Guest wins');
+            potToBank(guestPlayer);
+          }         
         }
       }  
       else{
