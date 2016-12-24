@@ -100,6 +100,7 @@ console.log(hostPlayer);
       this.betAmount = 0;
       this.updateBank = null;
     } 
+  /*Using prototype, functions don't have to be recreated for each player object */  
     Player.prototype = {
       setName: function(playerName){
         this.name = playerName;
@@ -250,6 +251,7 @@ console.log(hostPlayer);
       }      
     }  /* END HAND */    
  
+
        
 /* Instantiate player objects and overload updateBank method */
     hostPlayer = new Player();
@@ -276,6 +278,12 @@ console.log(hostPlayer);
       sendMessage({
         message: 'pot = ' + pot + '; $("#guest-pot-value").html(' + pot + ')'
       }, handleData);        
+    }
+    potToBank = function(winner){
+      winner.bank += pot;
+      pot = 0;
+      console.log('bank: ' + winner.bank);
+      console.log('pot: ' + pot)
     }
       
     
