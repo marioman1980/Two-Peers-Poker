@@ -6,6 +6,7 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
     var guest_id = null; 
     var name = null;
     var connMade = false;
+    
 //    guestCalls = null;
 
 /* Connection brokered through Heroku */
@@ -45,7 +46,7 @@ handleData function is used to handle data
       host_id = connection.peer;
       if ( connMade == false){
 /* Display name of opposing player */        
-        $('#host-connection-established').html("Connection established. You are playing " + conn.metadata.userName);
+        alert("Connection established. You are playing " + conn.metadata.userName);
         guestName = conn.metadata.userName;
         $('#guest-connection-established').html("Connection established. You are playing " + conn.metadata.userName);    
         hostName = $('#host-name').val();
@@ -68,17 +69,6 @@ handleData function is used to handle data
     handleData = function(data){
       eval(data.message);
       
-//      else if ((guestCalls == true) && (localStorage.playerType == 'host') ){
-//        alert(guestCalls);
-//        dealCard('#host-card', '#guest-host-card', true);
-//        guestCalls = false;
-//        hostPlayer.hand.cards.push(dealtCard);
-//        console.log(hostPlayer.hand);        
-//        dealCard('#guest-card', '#host-guest-card', true);
-//        guestPlayer.hand.cards.push(dealtCard);  
-//        console.log(guestPlayer.hand); 
-//        
-//      }
       
     }
   /* Sending messages */	  
