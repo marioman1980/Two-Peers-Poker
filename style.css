@@ -2,6 +2,7 @@
 /* CSS Document */
 
 body{
+  background-color: #00b300;
 	font-family: Tahoma
 }
 label{
@@ -9,14 +10,14 @@ label{
 }
 
 #host-content{
-/*	background-color: #24B110;*/
+/*	background-color: #00cc00;*/
   min-height: 300px;
 	height:auto;
   position:absolute;
   width: 100%
 }
 #guest-content{
-/*	background-color: #24B110;*/
+/*	background-color: #00cc00;*/
   min-height: 300px;
 	height:auto;
   position:relative;

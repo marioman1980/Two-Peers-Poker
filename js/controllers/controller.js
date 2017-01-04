@@ -3,7 +3,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
 
   function controller(){
     
-    startGame = false;
+    var startGame = false; //IF ERROR POSS HERE
     
     //Host Game
     $('#btn-host-game').click(function(){
@@ -12,11 +12,14 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         $('#display-id').append(myId);
         functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
         console.log(myId); 
-        alert("Give your ID to a friend so they can \"Join\" your game");
+        alert("Give your ID to a friend so they can \"Join\" your game \rID: " + myId);
         localStorage.playerType = 'host';        
       }
       catch(err){
-        alert(err);
+        if (err == 'ReferenceError: myId is not defined'){
+          alert('ID not assigned. Please click \'Host\' again.');
+        }
+        else alert(err);
       }
     }); 
     //Join Game
@@ -67,9 +70,11 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
     });   
     
     $('#btn-call').click(function(){
+    /* Host Calls */  
       if (localStorage.playerType == 'host'){
         if (startGame == true){
           callAmount = guestPlayer.betAmount - hostPlayer.betAmount;
+          hostPlayer.endTurn = true;
         }
         else{
           callAmount = guestPlayer.betAmount;  
@@ -86,7 +91,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
           console.log(hostPlayer.hand);        
           console.log(guestPlayer.hand); 
         }
-        if (hostPlayer.hand.cards.length == 5){
+        if (deck.dealtCards.length == 10){
           $( "#dialog" ).html('SHOWDOWN');
           $( "#dialog" ).dialog();
           setTimeout(function() { $( "#dialog" ).dialog('close'); }, 3000); 
@@ -105,15 +110,16 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         }
       }  
       else{
+      /* Guest calls */  
         callAmount = hostPlayer.betAmount;
         guestPlayer.bet(callAmount);
-        
+        guestPlayer.endTurn = true;
         guestPlayer.updateBank();
 //        updatePot(pot);   
         alert(callAmount);
         alert(pot);  
         updatePot(pot);
-        sendMessage({message: 'guestCalls = true'}, handleData)
+        sendMessage({message: 'guestCalls = true'}, handleData);
         
       }
       startGame = false;
@@ -141,15 +147,26 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       }
     });
     $('#btn-check').click(function(){
-      if (deck.dealtCards.length == 10){
-        alert('Showdown');
+      if (localStorage.playerType == 'host'){
+        if (hostPlayer.endTurn == true && guestPlayer.endTurn == true){
+          deck.dealCard(true);
+          console.log(hostPlayer.hand);        
+          console.log(guestPlayer.hand);  
+          hostPlayer.reset();
+          guestPlayer.reset();
+        }
+        if (deck.dealtCards.length == 10){
+          alert('Showdown');
+        }
       }
       else{
-        
+        sendMessage({message: 'guestPlayer.endTurn = true'}, handleData);
       }
     });  
     $('#btn-fold').click(function(){
-      deck.dealCard();
+      if (localStorage.playerType == 'host'){
+        potToBank(guestPlayer);
+      }  
     });      
     
 

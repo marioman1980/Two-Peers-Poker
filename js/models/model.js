@@ -1,4 +1,4 @@
-define(['jquery', 'connection', 'functions', 'jqueryui'], function($, connection, functions, ui){
+define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connection,  functions, ui){
  
   function model(){
  
@@ -98,7 +98,7 @@ console.log(hostPlayer);
       this.hand = new Hand();
       this.bank = 100;  
       this.betAmount = 0;
-      this.updateBank = null;
+      this.endTurn = false;
     } 
   /*Using prototype, functions don't have to be recreated for each player object */  
     Player.prototype = {
@@ -115,7 +115,23 @@ console.log(hostPlayer);
       getScore: function(){
         //console.log (this.type + ' ' + this.hand.evaluateHand());
         return (this.hand.evaluateHand());
-      }
+      },
+      reset: function(){
+        this.endTurn = false;  
+        this.betAmount = 0;
+      },
+      updateBank: function(){
+        if (this.type == 'host'){
+          sendMessage({
+            message: '$(".host-bank").html("' + hostPlayer.bank + '")'
+          }, handleData);
+        }
+        else if (this.type == 'guest'){
+          sendMessage({
+            message: '$(".guest-bank").html("' + guestPlayer.bank + '")'
+          }, handleData);          
+        }
+      }      
     }  /* END PLAYER */
 
 /* Hand object */
@@ -255,28 +271,30 @@ console.log(hostPlayer);
        
 /* Instantiate player objects and overload updateBank method */
     hostPlayer = new Player();
-    hostPlayer.updateBank = function(){
-      $('#host-bank').html(hostPlayer.bank);
-      sendMessage({
-        message: '$("#guest-opponent-bank").html("' + hostPlayer.bank + '")'
-      }, handleData);        
-    }
+//    hostPlayer.updateBank = function(){
+//      $('#host-bank').html(hostPlayer.bank);
+//      sendMessage({
+//        message: '$("#guest-opponent-bank").html("' + hostPlayer.bank + '")'
+//      }, handleData);        
+//    }
     guestPlayer = new Player();
-    guestPlayer.updateBank = function(){
-      $('#host-opponent-bank').html(guestPlayer.bank);
-      sendMessage({
-        message: '$("#guest-bank").html(' + guestPlayer.bank + ')'
-      }, handleData);  
-       sendMessage({
-        message: '$("#host-opponent-bank").html(' + guestPlayer.bank + ')'
-      }, handleData);    
-    }
+//    guestPlayer.updateBank = function(){
+//      $('#host-opponent-bank').html(guestPlayer.bank);
+//      sendMessage({
+//        message: '$("#guest-bank").html(' + guestPlayer.bank + ')'
+//      }, handleData);  
+//       sendMessage({
+//        message: '$("#host-opponent-bank").html(' + guestPlayer.bank + ')'
+//      }, handleData);    
+//    }
     updatePot = function(pot){
+      //$(".pot").html(pot);
+//      sendMessage({
+//        message: 'pot = ' + pot + '; $("#host-pot-value").html(' + pot + ')'
+//      }, handleData); 
       sendMessage({
-        message: 'pot = ' + pot + '; $("#host-pot-value").html(' + pot + ')'
-      }, handleData); 
-      sendMessage({
-        message: 'pot = ' + pot + '; $("#guest-pot-value").html(' + pot + ')'
+        //message: 'pot = ' + pot + '; $("#guest-pot-value").html(' + pot + ')'
+        message: '$(".pot").html(' + pot + ')'
       }, handleData);        
     }
     potToBank = function(winner){
