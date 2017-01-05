@@ -31,7 +31,8 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         card = rank + suit;	
         image = '<img src="../Two-Peers-Poker/images/allCards/' + card + '.jpg">';
         console.log(card);
-  /* Card object to return each time a card is dealt */      
+  /* Card object to return each time a card is dealt */  
+        
         var dealtCard = {
           value: value,
           suit: suit,
@@ -47,7 +48,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         console.log(notDealt);
   /* Only return card if it hasn't already been dealt */           
         if (notDealt == true){
-          deck.dealtCards.push(card);
+          sendMessage({message: "deck.dealtCards.push('" + card + "')"}, handleData);
           return (dealtCard);         
         }
       },   //END SELECT CARD
@@ -56,32 +57,40 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         do { dealtCard = deck.selectCard(); }
         while (dealtCard == undefined);  
         var faceUp = faceUp;
-        $('#host-card').append(dealtCard.image);
+        //$('#host-card').append(dealtCard.image);
         if (faceUp == true){image = dealtCard.image;}
         else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}
         sendMessage({
+          message: "$('#host-card').append('" + dealtCard.image +"')"
+        }, handleData);        
+        sendMessage({
           message: "$('#guest-host-card').append('" + image +"')"
         }, handleData);
-        hostPlayer.hand.cards.push(dealtCard);
+        sendMessage({message: "playerCard = {value: parseInt('" + value + "'), suit: '" + suit + "'}"}, handleData);
+        sendMessage({message: "hostPlayer.hand.cards.push(playerCard)"}, handleData);
         do { dealtCard = deck.selectCard(); }
         while (dealtCard == undefined); 
         if (faceUp == true){image = dealtCard.image;}
         else {image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">'}        
-        $('#host-guest-card').append(image);
+        //$('#host-guest-card').append(image);
+        sendMessage({
+          message: "$('#host-guest-card').append('" + image +"')"
+        }, handleData);         
         sendMessage({
           message: "$('#guest-card').append('" + dealtCard.image +"')"
         }, handleData); 
-        guestPlayer.hand.cards.push(dealtCard);
+        //guestPlayer.hand.cards.push(dealtCard);
+        sendMessage({message: "playerCard = {value: parseInt('" + value + "'), suit: '" + suit + "'}"}, handleData);
+        sendMessage({message: "guestPlayer.hand.cards.push(playerCard)"}, handleData);
+        sendMessage({message: "guestPlayer.endTurn = false"}, handleData);
+        sendMessage({message: "hostPlayer.endTurn = false"}, handleData);
       },
     /* Set player names & types. Deal initial cards */
       dealStartCards: function(){     
         hostPlayer.setName(hostName);
         hostPlayer.setType('host');
         guestPlayer.setName(guestName);
-        guestPlayer.setType('guest');      
-        alert(hostPlayer.type + ' ' + hostPlayer.name);
-        alert(guestPlayer.type + ' ' + guestPlayer.name);
-console.log(hostPlayer);
+        sendMessage({message: "guestPlayer.setType('guest')"}, handleData);      
   /* Deal two cards to each player */
         deck.dealCard(false);
         deck.dealCard(true);
@@ -144,7 +153,7 @@ console.log(hostPlayer);
         var i;
         var j;
         var playerCards = this.cards;
- 
+ //FOOOOOOOOOOO
       /* Sort cards into ascending order */  
         playerCards.sort(function(a, b){
           if (a.value < b.value) return -1;
@@ -293,30 +302,75 @@ console.log(hostPlayer);
 //        message: 'pot = ' + pot + '; $("#host-pot-value").html(' + pot + ')'
 //      }, handleData); 
       sendMessage({
+        message: 'pot = ' + pot
+      }, handleData);
+      sendMessage({
         //message: 'pot = ' + pot + '; $("#guest-pot-value").html(' + pot + ')'
         message: '$(".pot").html(' + pot + ')'
-      }, handleData);        
+      }, handleData);  
+      
     }
     potToBank = function(winner){
       winner.bank += pot;
+      winner.updateBank();
       pot = 0;
-      console.log('bank: ' + winner.bank);
+      console.log(winner + 'bank: ' + winner.bank);
       console.log('pot: ' + pot)
+      if (winner == hostPlayer){
+        sendMessage({
+          message: '$(".host-bank").html("' + hostPlayer.bank + '")'
+        }, handleData);  
+        sendMessage({message: "hostPlayer.bank = '" + hostPlayer.bank + "'"}, handleData);
+      }  
+      else if (winner == guestPlayer){
+        sendMessage({
+          message: '$(".guest-bank").html("' + guestPlayer.bank + '")'
+        }, handleData);  
+        sendMessage({message: "guestPlayer.bank = '" + guestPlayer.bank + "'"}, handleData);
+      } 
     }
-      
-    
-    $('#btn-send').click(function(){
+     
+    determineWinner = function(){
       hostScore = hostPlayer.getScore();
       guestScore = guestPlayer.getScore();
       console.log(hostScore);
       console.log(guestScore);
       if (hostScore > guestScore){
         alert('Host wins');
+        potToBank(hostPlayer);
       }
       else{
         alert('Guest wins');
-      }
-    });    
+        potToBank(guestPlayer);
+      }   
+      //reset();
+    }
+    
+    reset = function(){
+      sendMessage({message: "pot = 0"}, handleData);
+      sendMessage({message: '$(".pot").html(' + pot + ')'}, handleData);
+      sendMessage({message: "hostPlayer.hand.cards = []"}, handleData);
+      sendMessage({message: "guestPlayer.hand.cards = []"}, handleData);
+      sendMessage({message: "deck.dealtCards = []"}, handleData);
+      sendMessage({message: "$('#host-card').empty()"}, handleData);
+      sendMessage({message: "$('#guest-host-card').empty()"}, handleData);
+      sendMessage({message: "$('#host-guest-card').empty()"}, handleData);
+      sendMessage({message: "$('#guest-card').empty()"}, handleData);
+      sendMessage({message: "hostPlayer.betAmount = 0; guestPlayer.betAmount = 0"}, handleData);
+    }
+    
+//    $('#btn-send').click(function(){
+//      hostScore = hostPlayer.getScore();
+//      guestScore = guestPlayer.getScore();
+//      console.log(hostScore);
+//      console.log(guestScore);
+//      if (hostScore > guestScore){
+//        alert('Host wins');
+//      }
+//      else{
+//        alert('Guest wins');
+//      }
+//    });    
 
     
     
