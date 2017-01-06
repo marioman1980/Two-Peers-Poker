@@ -1,4 +1,4 @@
-require(['peerjs', 'connection', 'models/model', 'views/view', 'controllers/controller'], function(peerjs, connection, model, view, controller){
+require(['peerjs', 'connection', 'model', 'controller'], function(peerjs, connection, model, controller){
 
   /* This object will take in an array of XirSys STUN / TURN servers
    and override the original Peer config object in connection */   
@@ -26,7 +26,7 @@ require(['peerjs', 'connection', 'models/model', 'views/view', 'controllers/cont
 
   
   model.model();
-  view.view();
+
   controller.controller();
 
 

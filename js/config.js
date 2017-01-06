@@ -7,13 +7,6 @@ requirejs.config({
   }
 });
 
-define('connect', ['jquery', 'peerjs', 'connect'], function($, peerjs, connect){
-
-
-
-  
-  
-});    
 
 
 

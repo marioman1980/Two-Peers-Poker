@@ -1,4 +1,4 @@
-define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jqueryui'], function($, connection, model, view, functions, ui){
+define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, connection, model, functions, ui){
   
 
   function controller(){
@@ -30,13 +30,14 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
     //Connect to game
     $('#btn-join-game').click(function(){
       connection.joinGame();
+      
     }); 
     
     /* Start Game. 
     Cards dealt and player banks initiated
     */
     $('#start-game').click(function(){
-      reset();
+      functions.gameFunctions.reset();
       startGame = true;
       deck.dealStartCards();
 //      $('#start-game').addClass('remove');
@@ -59,7 +60,7 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
 //      sendMessage({
 //        message: 'hostPlayer.betAmount = 10'
 //      }, handleData);
-      guestPlayer.betAmount = 20;
+      guestPlayer.betAmount = 10;
       hostPlayer.bet(hostPlayer.betAmount);
       guestPlayer.bet(guestPlayer.betAmount);
       hostPlayer.updateBank();
@@ -68,19 +69,20 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       sendMessage({
         message: 'guestPlayer.bank = ' + guestPlayer.bank
       }, handleData);      
-      updatePot(pot);    
+      functions.gameFunctions.updatePot(pot); 
+      sendMessage({message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}"}, handleData);
     });   
     
     $('#btn-call').click(function(){
     /* Host Calls */  
       if (localStorage.playerType == 'host'){
-        if (startGame == true){
-          callAmount = guestPlayer.betAmount - hostPlayer.betAmount;
-          sendMessage({message: 'hostPlayer.endTurn = true'}, handleData);
-        }
-        else{
+//        if (startGame == true){
+//          callAmount = guestPlayer.betAmount - hostPlayer.betAmount;
+//          sendMessage({message: 'hostPlayer.endTurn = true'}, handleData);
+//        }
+//        else{
           callAmount = guestPlayer.betAmount;  
-        }
+//        }
         sendMessage({
           message: 'hostPlayer.betAmount = ' + callAmount
         }, handleData);  
@@ -89,19 +91,22 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         hostPlayer.bet(callAmount);
         hostPlayer.updateBank();
         sendMessage({message: 'hostPlayer.bank = ' + hostPlayer.bank}, handleData);
-        updatePot(pot); 
-        if (startGame != true){
+        functions.gameFunctions.updatePot(pot); 
+        //if (startGame != true){
           /*===!!!!!!!DEAL A CARD!!!!!===
           ==========Need to deal a card if guest calls ========*/
           deck.dealCard(true);
+        functions.gameFunctions.enableControls();
+        sendMessage({message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}"}, handleData);
+        
+        
           console.log(hostPlayer.hand);        
           console.log(guestPlayer.hand); 
-        }
+        //}
         if (deck.dealtCards.length == 10){
-          $( "#dialog" ).html('SHOWDOWN');
-          $( "#dialog" ).dialog();
-          setTimeout(function() { $( "#dialog" ).dialog('close'); }, 3000); 
-          determineWinner();        
+
+          setTimeout(function() { functions.gameFunctions.determineWinner();  }, 500); 
+                
         }
       }  
       else{
@@ -110,8 +115,16 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
         guestPlayer.bet(callAmount);
         guestPlayer.endTurn = true;
         guestPlayer.updateBank();
-        updatePot(pot); 
+        sendMessage({message: "guestPlayer.bank = " + guestPlayer.bank}, handleData);
+        functions.gameFunctions.updatePot(pot); 
         deck.dealCard(true);
+        functions.gameFunctions.disableControls();
+        sendMessage({message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}"}, handleData);        
+        if (deck.dealtCards.length == 10){
+
+          setTimeout(function() { functions.gameFunctions.determineWinner();  }, 500); 
+                
+        }        
       }
       startGame = false;
       sendMessage({message: 'hostPlayer.reset()'}, handleData);
@@ -126,17 +139,23 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
           message: 'hostPlayer.betAmount = ' + hostPlayer.betAmount
         }, handleData);        
         hostPlayer.updateBank();
-        updatePot(pot);         
+        sendMessage({message: "hostPlayer.bank = " + hostPlayer.bank}, handleData);
+        functions.gameFunctions.updatePot(pot);
+        functions.gameFunctions.disableControls();
+        sendMessage({message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.enableControls();}"}, handleData);        
       }
       else{
         guestPlayer.betAmount = parseInt($('#bet-value').val());
         guestPlayer.bet(guestPlayer.betAmount);
         sendMessage({
           message: 'guestPlayer.betAmount = ' + guestPlayer.betAmount
-        }, handleData);         
+        }, handleData); 
+        sendMessage({message: "guestPlayer.endTurn = true"}, handleData);
         guestPlayer.updateBank();
-        updatePot(pot);
-
+        sendMessage({message: "guestPlayer.bank = " + guestPlayer.bank}, handleData);
+        functions.gameFunctions.updatePot(pot);
+        functions.gameFunctions.disableControls();
+        sendMessage({message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}"}, handleData);
       }
     });
     $('#btn-check').click(function(){
@@ -150,6 +169,8 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
           guestPlayer.reset();
         }
         sendMessage({message: 'hostPlayer.endTurn = true'}, handleData);
+        functions.gameFunctions.disableControls();
+        sendMessage({message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.enableControls();}"}, handleData);        
         if (deck.dealtCards.length == 10){
           alert('Showdown');
         }
@@ -157,24 +178,24 @@ define(['jquery', 'connection', 'models/model', 'views/view', 'functions', 'jque
       else{
         sendMessage({message: 'guestPlayer.endTurn = true'}, handleData);
         deck.dealCard(true);
+        functions.gameFunctions.disableControls();
+        sendMessage({message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}"}, handleData);        
         if (deck.dealtCards.length == 10){
-          determineWinner();
+          setTimeout(function() { functions.gameFunctions.determineWinner();  }, 500); 
         }        
       }
     });  
     
     $('#btn-fold').click(function(){
       if (localStorage.playerType == 'host'){
-        potToBank(guestPlayer);
+        functions.gameFunctions.potToBank(guestPlayer);
       }  
     });      
     
     
     
     $('#btn-send').click(function(){
-      console.log(hostPlayer.hand.cards);
-      console.log(guestPlayer.hand.cards);
-      console.log(deck.dealtCards);
+      alert(pot);
     });
     
     $('#btn-eval').click(function(){

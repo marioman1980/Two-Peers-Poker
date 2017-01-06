@@ -1,4 +1,4 @@
-define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, connect, model, functions){
+define(['peerjs', 'model', 'functions'], function(peerjs, model, functions){
   
   function connection(customConfig){
 
@@ -6,11 +6,8 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
     var guest_id = null; 
     var name = null;
     var connMade = false;
-    
-//    guestCalls = null;
 
-/* Connection brokered through Heroku */
-    
+/* Connection brokered through Heroku */   
     peer = new Peer({　
         host: 'twopeers.herokuapp.com',
         secure: true,
@@ -32,26 +29,27 @@ define(['peerjs', 'connect', 'models/model', 'functions'], function(peerjs, conn
       host_id = $('#input-host-id').val();
       conn = peer.connect(host_id, {metadata: {'userName' : name}});
 /* 
-Every time a message is sent to or from, 
-handleData function is used to handle data 
+Every time a message is received, 
+handleData executes the contents
 */
       conn.on('data', handleData); 
-      $('#mmmm').addClass('remove');
+      $('#guest-host-id').addClass('remove');
       $('#guest-enter-id').addClass('remove');  
       $('#choose-player').addClass('remove');  
-    }
+      alert("Connection successfully established");
+    }//End joinGame
 
-    peer.on('connection', function(connection){     
+    peer.on('connection', function(connection){   
+      
       conn = connection;
       host_id = connection.peer;
+      
       if ( connMade == false){
-/* Display name of opposing player */        
-        alert("Connection established. You are playing " + conn.metadata.userName);
+/* Confirm successful connection */
+        alert("Connection successfully established");
         guestName = conn.metadata.userName;
-        $('#guest-connection-established').html("Connection established. You are playing " + conn.metadata.userName);    
         hostName = $('#host-name').val();
         guest_id = host_id;
-        //conn = peer.connect(guest_id, {metadata: {'userName' : hostName}});
         conn.on('data', handleData); 
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
@@ -65,12 +63,11 @@ handleData function is used to handle data
       location.reload();
     });
   }
-  /* Function handles data sent */  
+  /* Function handles data received */  
     handleData = function(data){
-      eval(data.message);
-      
-      
+      eval(data.message);      
     }
+    
   /* Sending messages */	  
     sendMessage = function(data, handleData){
       conn.send(data);
