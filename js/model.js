@@ -57,8 +57,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         }
       },   //END SELECT CARD
 
-      dealCard: function(faceUp){
-        
+      dealCard: function(faceUp){      
         do { dealtCard = deck.selectCard(); }
         while (dealtCard == undefined);  
       /* If faceUp is false, the opponent will not be able to see the card's face */  
@@ -75,7 +74,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         while (dealtCard == undefined); 
         
         if (faceUp == true){ image = dealtCard.image; }
-        else { image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">' }        
+        else { image = '<img id="hostBack" src="../Two-Peers-Poker/images/allCards/cardBack.jpg">' }        
 
         sendMessage({ message: "$('#host-guest-card').append('" + image +"')" }, handleData);         
         sendMessage({ message: "$('#guest-card').append('" + dealtCard.image +"')" }, handleData); 
