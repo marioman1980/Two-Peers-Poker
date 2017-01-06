@@ -4,7 +4,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
  
     pot = 0;
     
- /* DECK OBJECT */    
+ /* =========== DECK OBJECT ========== */    
     deck = {
       cardRanks: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
       cardSuits: ['C', 'D', 'H', 'S'],
@@ -101,7 +101,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
       
     } /* END DECK */
  
-/* Player object */
+/* ========== Player object ========== */
     function Player(playerName, playerType){
       this.name = playerName;
       this.type = playerType;
@@ -122,6 +122,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         pot += betAmount;
         this.bank -= betAmount;
       },
+    // Calls function to give a score to a player's hand
       getScore: function(){
         return (this.hand.evaluateHand());
       },
@@ -143,7 +144,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
     hostPlayer = new Player();
     guestPlayer = new Player();    
     
-/* Hand object */
+/*============= Hand object ========= */
     function Hand(){
       this.cards = [];
       this.handName = null;
@@ -177,8 +178,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
           if (playerCards[i].suit != playerCards[0].suit){
             flush = false;
             break
-          }
-          else{
+          } else{
             flush = true;
           }       
         }
@@ -196,8 +196,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
           if ((playerCards[i].value - playerCards[j].value) != 1){
             straight = false;
             break;
-          }
-          else{
+          } else{
             straight = true;
           }
         }  
@@ -220,8 +219,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
             if ((playerCards[i].value - playerCards[j].value) == 0){
               pairsArray[j] = 1;
               pairValue = playerCards[i].value;
-            }
-            else{
+            } else{
               pairsArray[j] = 0;
             }
           }
@@ -233,8 +231,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
           if(pairsTotal == 1){ /* Single pair */
             this.handScore += (100 + pairValue);
             this.handName = 'Pair';
-          }
-          else if (pairsTotal == 0){ /* High card */
+          } else if (pairsTotal == 0){ /* High card */
             this.handScore += (playerCards[4].value);  
             this.handName = 'High Card';
           }
@@ -259,8 +256,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
             if (((pairsArray[0] == 1) && (pairsArray[1] == 1)) || ((pairsArray[1] == 1) && (pairsArray[2] == 1)) || ((pairsArray[2] == 1) && (pairsArray[3] == 1))){
               this.handScore += (300 + playerCards[2].value);
               this.handName = 'Trips';          
-            }  
-            else{
+            } else{
             /* Two Pairs - only remaining combination*/  
               this.handScore += (200 + playerCards[3].value);
               this.handName = 'Two Pairs';  
