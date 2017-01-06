@@ -62,14 +62,29 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     $('#btn-call').click(function(){
     /* Host Calls */  
       if (localStorage.playerType == 'host'){
+        sendMessage({ message: "alert('" + hostPlayer.name + " calls')" }, handleData);
         if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner();             
         }
       //If guest bets, match it  
-        callAmount = guestPlayer.betAmount;  
+//        if (hostPlayer.bank > guestPlayer.betAmount){
+          callAmount = guestPlayer.betAmount;  
+//        } else{
+//          callAmount = hostPlayer.bank;
+//          sendMessage({ message: "alert('" + hostPlayer.name + " is all-in')" }, handleData);
+//          sendMessage({ message: "guestPlayer.bank += " + (guestPlayer.betAmount - callAmount) }, handleData);
+//          while (deck.dealtCards.length < 10){
+//            deck.dealCard(true);
+//          }
+//          functions.gameFunctions.determineWinner();
+//        }      
         sendMessage({ message: 'hostPlayer.betAmount = ' + callAmount }, handleData);  
         hostPlayer.bet(callAmount);
         hostPlayer.updateBank();
+//        console.log(callAmount);
+//        console.log(guestPlayer.betAmount);
+//        console.log(guestPlayer.bank);
+//        console.log(hostPlayer.bank);
         sendMessage({ message: 'hostPlayer.bank = ' + hostPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
         
@@ -80,6 +95,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}" }, handleData);
       } else{
       /* Guest calls */
+        sendMessage({ message: "alert('" + guestPlayer.name + " calls')" }, handleData);
         if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner();                
         }         
@@ -107,6 +123,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
       if (localStorage.playerType == 'host'){
       //Get bet value from input  
         hostPlayer.betAmount = parseInt($('#bet-value').val());
+        sendMessage({ message: "alert('" + hostPlayer.name + " raises " + hostPlayer.betAmount + "')" }, handleData);
         hostPlayer.bet(hostPlayer.betAmount);
         sendMessage({ message: 'hostPlayer.betAmount = ' + hostPlayer.betAmount }, handleData);        
         hostPlayer.updateBank();
@@ -117,6 +134,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
       } else{
       //Guest Raises  
         guestPlayer.betAmount = parseInt($('#bet-value').val());
+        sendMessage({ message: "alert('" + guestPlayer.name + " raises " + guestPlayer.betAmount + "')" }, handleData);        
         guestPlayer.bet(guestPlayer.betAmount);
         sendMessage({ message: 'guestPlayer.betAmount = ' + guestPlayer.betAmount }, handleData); 
         sendMessage({message: "guestPlayer.endTurn = true"}, handleData);
@@ -132,6 +150,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     $('#btn-check').click(function(){
     //Host Checks  
       if (localStorage.playerType == 'host'){
+        sendMessage({ message: "alert('" + hostPlayer.name + " checks')" }, handleData);
       //If both players have checked  
         if (hostPlayer.endTurn == true && guestPlayer.endTurn == true){
           deck.dealCard(true); 
@@ -143,6 +162,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.enableControls();}" }, handleData);        
       } else{
       //Guest Checks 
+        sendMessage({ message: "alert('" + guestPlayer.name + " checks')" }, handleData);
         if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner();
         }           
@@ -158,10 +178,12 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
   /* === FOLD === */    
     $('#btn-fold').click(function(){
       if (localStorage.playerType == 'host'){
+        sendMessage({ message: "alert('" + hostPlayer.name + " folds')" }, handleData);
         functions.gameFunctions.potToBank(guestPlayer);
         sendMessage({ message: "alert(guestPlayer.name + ' wins')" }, handleData);
       }  
       else if (localStorage.playerType == 'guest'){
+        sendMessage({ message: "alert('" + guestPlayer.name + " folds')" }, handleData);
         functions.gameFunctions.potToBank(hostPlayer);
         sendMessage({ message: "alert(hostPlayer.name + ' wins')" }, handleData);
       } 
