@@ -62,10 +62,6 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     $('#btn-call').click(function(){
     /* Host Calls */  
       if (localStorage.playerType == 'host'){
-        sendMessage({ message: "alert('" + hostPlayer.name + " calls')" }, handleData);
-        if (deck.dealtCards.length == 10){
-          functions.gameFunctions.determineWinner();             
-        }
       //If guest bets, match it  
         callAmount = guestPlayer.betAmount;  
         sendMessage({ message: 'hostPlayer.betAmount = ' + callAmount }, handleData);  
@@ -74,6 +70,10 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
 
         sendMessage({ message: 'hostPlayer.bank = ' + hostPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
+        sendMessage({ message: "alert('" + hostPlayer.name + " calls')" }, handleData);
+        if (deck.dealtCards.length == 10){
+          functions.gameFunctions.determineWinner(); 
+        }        
         
         if (deck.dealtCards.length != 10){
           deck.dealCard(true);
@@ -81,17 +81,17 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         functions.gameFunctions.enableControls();
         sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}" }, handleData);
       } else{
-      /* Guest calls */
-        sendMessage({ message: "alert('" + guestPlayer.name + " calls')" }, handleData);
-        if (deck.dealtCards.length == 10){
-          functions.gameFunctions.determineWinner();                
-        }         
+      /* Guest calls */     
         callAmount = hostPlayer.betAmount;
         guestPlayer.bet(callAmount);
         guestPlayer.endTurn = true;
         guestPlayer.updateBank();
         sendMessage({ message: "guestPlayer.bank = " + guestPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
+        sendMessage({ message: "alert('" + guestPlayer.name + " calls')" }, handleData);
+        if (deck.dealtCards.length == 10){
+          functions.gameFunctions.determineWinner();  
+        }            
         if (deck.dealtCards.length != 10){
           deck.dealCard(true);
         }
@@ -181,7 +181,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     
   /* === BUTTONS FOR TESTING === */  
     $('#btn-send').click(function(){
-      alert(pot);
+      conn.close();
     });
     
     $('#btn-eval').click(function(){

@@ -50,11 +50,25 @@ define(['jquery'], function($){
       if (hostScore > guestScore){
         sendMessage({ message: "alert(hostPlayer.name + ' wins')" }, handleData);
         this.potToBank(hostPlayer);
+        sendMessage({ message: "if (" + guestPlayer.bank <= 0 + ") alert('Game Over. Play again?')"}, handleData);
       }
       else{
         sendMessage({ message: "alert(guestPlayer.name + ' wins')" }, handleData);
         this.potToBank(guestPlayer);
-      }   
+      }  
+      alert (guestPlayer.bank);
+      if ((guestPlayer.bank <= 0) || (hostPlayer.bank <= 0)){
+        sendMessage({ message: "alert('Game Over')" }, handleData);
+        if (confirm('Play again?') == true){
+          sendMessage({ message: "hostPlayer.bank = 100; hostPlayer.updateBank()" }, handleData);
+          sendMessage({ message: "guestPlayer.bank = 100; guestPlayer.updateBank()" }, handleData);
+          sendMessage({ message: "if (localStorage.playerType == 'host') {document.getElementById('start-game').click(); }"}, handleData);
+        } else{
+        //Gracefully closes connection and clears up after itself 
+          conn.close();
+          location.reload();
+        }
+      }      
     },
     
   /*  Clear values on both devices,

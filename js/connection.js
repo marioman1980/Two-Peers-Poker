@@ -37,6 +37,11 @@ handleData executes the contents
       $('#guest-enter-id').addClass('remove');  
       $('#choose-player').addClass('remove');  
       alert("Connection successfully established");
+      
+      conn.on('close', function(){
+        alert("Game Over!");
+        location.reload();
+      });      
     }//End joinGame
 
     peer.on('connection', function(connection){   
@@ -54,7 +59,12 @@ handleData executes the contents
         $('#display-id').addClass('remove');
         $('#start-game').addClass('show-content');
         connMade = true;
-      }        
+      } 
+      
+      conn.on('close', function(){
+        alert("Game Over!");
+        location.reload();
+      });      
     });  
    
   /* Catch any errors related to the connection */  
@@ -62,6 +72,12 @@ handleData executes the contents
       alert(err);
       location.reload();
     });
+  /* Try to reconnect if disconnected from server */  
+    peer.on('disconnected', function() {
+      alert('disconnected');
+      peer.reconnect();
+    });   
+
   }
   /* Function handles data received */  
     handleData = function(data){
