@@ -23,6 +23,13 @@ require(['peerjs', 'connection', 'model', 'controller'], function(peerjs, connec
       /* Pass iceServers to connection */
       connection.connection(customConfig);
     },
+    error: function (jqXHR, err) {
+      if(err) {
+        alert(err);
+      }else{
+        alert(jqXHR.responseText);//Uncaught error
+      }     
+    }    
   });
 
   
