@@ -67,24 +67,11 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
           functions.gameFunctions.determineWinner();             
         }
       //If guest bets, match it  
-//        if (hostPlayer.bank > guestPlayer.betAmount){
-          callAmount = guestPlayer.betAmount;  
-//        } else{
-//          callAmount = hostPlayer.bank;
-//          sendMessage({ message: "alert('" + hostPlayer.name + " is all-in')" }, handleData);
-//          sendMessage({ message: "guestPlayer.bank += " + (guestPlayer.betAmount - callAmount) }, handleData);
-//          while (deck.dealtCards.length < 10){
-//            deck.dealCard(true);
-//          }
-//          functions.gameFunctions.determineWinner();
-//        }      
+        callAmount = guestPlayer.betAmount;  
         sendMessage({ message: 'hostPlayer.betAmount = ' + callAmount }, handleData);  
         hostPlayer.bet(callAmount);
         hostPlayer.updateBank();
-//        console.log(callAmount);
-//        console.log(guestPlayer.betAmount);
-//        console.log(guestPlayer.bank);
-//        console.log(hostPlayer.bank);
+
         sendMessage({ message: 'hostPlayer.bank = ' + hostPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
         

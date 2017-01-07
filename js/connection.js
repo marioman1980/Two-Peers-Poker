@@ -1,4 +1,4 @@
-define(['peerjs', 'model', 'functions'], function(peerjs, model, functions){
+define(['peerjs', 'functions'], function(peerjs, functions){
   
   function connection(customConfig){
 

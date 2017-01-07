@@ -63,7 +63,10 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
       /* If faceUp is false, the opponent will not be able to see the card's face */  
         var faceUp = faceUp;
         if (faceUp == true){ image = dealtCard.image; }
-        else { image = '<img src="../Two-Peers-Poker/images/allCards/cardBack.jpg">' }
+        else { 
+          image = '<img id="guestBack" src="../Two-Peers-Poker/images/allCards/cardBack.jpg">';
+          sendMessage({ message: "hostFirstCard = '../Two-Peers-Poker/images/allCards/" + card + ".jpg'" }, handleData);          
+        }
         
         sendMessage({ message: "$('#host-card').append('" + dealtCard.image +"')" }, handleData);        
         sendMessage({ message: "$('#guest-host-card').append('" + image +"')" }, handleData);
@@ -74,7 +77,10 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         while (dealtCard == undefined); 
         
         if (faceUp == true){ image = dealtCard.image; }
-        else { image = '<img id="hostBack" src="../Two-Peers-Poker/images/allCards/cardBack.jpg">' }        
+        else { 
+          image = '<img id="hostBack" src="../Two-Peers-Poker/images/allCards/cardBack.jpg">';
+          sendMessage({ message: "guestFirstCard = '../Two-Peers-Poker/images/allCards/" + card + ".jpg'" }, handleData);           
+        }        
 
         sendMessage({ message: "$('#host-guest-card').append('" + image +"')" }, handleData);         
         sendMessage({ message: "$('#guest-card').append('" + dealtCard.image +"')" }, handleData); 

@@ -24,9 +24,9 @@ define(['jquery'], function($){
     potToBank: function(winner){
       winner.bank += pot;
       winner.updateBank();
-      pot = 0;
+      //pot = 0;
       console.log(winner + 'bank: ' + winner.bank);
-      console.log('pot: ' + pot)
+      //console.log('pot: ' + pot)
       if (winner == hostPlayer){
         sendMessage({ message: '$(".host-bank").html("' + hostPlayer.bank + '")' }, handleData);  
         sendMessage({ message: "hostPlayer.bank = '" + hostPlayer.bank + "'" }, handleData);
@@ -35,6 +35,7 @@ define(['jquery'], function($){
         sendMessage({ message: '$(".guest-bank").html("' + guestPlayer.bank + '")' }, handleData);  
         sendMessage({ message: "guestPlayer.bank = '" + guestPlayer.bank + "'" }, handleData);
       } 
+      this.updatePot(0);
     },
 
   /* Call getScore() on both players to determine winner */  
@@ -43,6 +44,9 @@ define(['jquery'], function($){
       guestScore = guestPlayer.getScore();
       console.log(hostScore);
       console.log(guestScore);
+    //Reveal face down cards  
+      sendMessage({ message: "document.getElementById('guestBack').src = hostFirstCard" }, handleData);
+      sendMessage({ message: "document.getElementById('hostBack').src = guestFirstCard" }, handleData);
       if (hostScore > guestScore){
         sendMessage({ message: "alert(hostPlayer.name + ' wins')" }, handleData);
         this.potToBank(hostPlayer);
