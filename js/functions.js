@@ -68,7 +68,8 @@ define(['jquery'], function($){
           conn.close();
           location.reload();
         }
-      }      
+      }
+      sendMessage({ message: "if (localStorage.playerType == 'host') {document.getElementById('start-game').click(); }"}, handleData);
     },
     
   /*  Clear values on both devices,

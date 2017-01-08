@@ -168,14 +168,17 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: "alert('" + hostPlayer.name + " folds')" }, handleData);
         functions.gameFunctions.potToBank(guestPlayer);
         sendMessage({ message: "alert(guestPlayer.name + ' wins')" }, handleData);
+        document.getElementById('start-game').click();  
       }  
       else if (localStorage.playerType == 'guest'){
         sendMessage({ message: "alert('" + guestPlayer.name + " folds')" }, handleData);
         functions.gameFunctions.potToBank(hostPlayer);
         sendMessage({ message: "alert(hostPlayer.name + ' wins')" }, handleData);
+        sendMessage({ message: "if (localStorage.playerType == 'host') {document.getElementById('start-game').click(); }"}, handleData);   
       } 
       sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}" }, handleData);  
-      sendMessage({ message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}" }, handleData);        
+      sendMessage({ message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}" }, handleData); 
+         
     });  //END FOLD   
     
     
