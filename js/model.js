@@ -169,9 +169,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         var playerCards = this.cards;
       /* Sort cards into ascending order */  
         playerCards.sort(function(a, b){
-          if (a.value < b.value) return -1;
-          if (a.value > b.value) return 1;		
-          return 0;    
+          return (a.value - b.value);
         });
 
       /* If Ace is necessary for low straight, change value from 14 to 1 */  
@@ -179,9 +177,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
           playerCards[4].value = 1;
         /* Re-sort cards */  
           playerCards.sort(function(a, b){
-            if (a.value < b.value) return -1;
-            if (a.value > b.value) return 1;		
-            return 0;    
+            return (a.value - b.value);
           });    
         }
 

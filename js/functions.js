@@ -39,6 +39,7 @@ define(['jquery'], function($){
       this.updatePot(0);
     },
 
+
   /* Call getScore() on both players to determine winner */  
     determineWinner: function(){
       hostScore = hostPlayer.getScore();

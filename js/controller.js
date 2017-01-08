@@ -71,20 +71,29 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: 'hostPlayer.bank = ' + hostPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
         sendMessage({ message: "alert('" + hostPlayer.name + " calls')" }, handleData);
+      /* If one or both players are 'all-in' deal remaining cards before evaluating hands */        
+        if (hostPlayer.bank == 0 || guestPlayer.bank == 0){
+          while (deck.dealtCards.length < 10){
+            deck.dealCard(true);
+          }
+          setTimeout(function(){
+            functions.gameFunctions.determineWinner(); 
+          }, 1000);
+        } 
         
       /*
         When a showdown is reached (each player has 5 cards bets are equal),
         call function to evaluate bot hands and determine winner of hand
       */
-        if (deck.dealtCards.length == 10){
+        else if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner(); 
-        }        
-        
+        }              
         if (deck.dealtCards.length != 10){
           deck.dealCard(true);
         }
         functions.gameFunctions.enableControls();
         sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}" }, handleData);
+
       } else{
       /* Guest calls */     
         callAmount = hostPlayer.betAmount;
@@ -94,7 +103,16 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: "guestPlayer.bank = " + guestPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
         sendMessage({ message: "alert('" + guestPlayer.name + " calls')" }, handleData);
-        if (deck.dealtCards.length == 10){
+        
+        if (hostPlayer.bank == 0 || guestPlayer.bank == 0){
+          while (deck.dealtCards.length < 10){
+            deck.dealCard(true);
+          }
+          setTimeout(function(){
+            functions.gameFunctions.determineWinner(); 
+          }, 1000);
+        }       
+        else if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner();  
         }            
         if (deck.dealtCards.length != 10){
@@ -115,26 +133,35 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
       if (localStorage.playerType == 'host'){
       //Get bet value from input  
         hostPlayer.betAmount = parseInt($('#bet-value').val());
-        sendMessage({ message: "alert('" + hostPlayer.name + " raises " + hostPlayer.betAmount + "')" }, handleData);
-        hostPlayer.bet(hostPlayer.betAmount);
-        sendMessage({ message: 'hostPlayer.betAmount = ' + hostPlayer.betAmount }, handleData);        
-        hostPlayer.updateBank();
-        sendMessage({message: "hostPlayer.bank = " + hostPlayer.bank}, handleData);
-        functions.gameFunctions.updatePot(pot);
-        functions.gameFunctions.disableControls();
-        sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.enableControls();}" }, handleData);        
+      //Make sure user enters bet value  
+        if (hostPlayer.betAmount == 0 || (isNaN(hostPlayer.betAmount) == true)){
+          alert("Can't bet nothing!!")
+        } else{
+          sendMessage({ message: "alert('" + hostPlayer.name + " raises " + hostPlayer.betAmount + "')" }, handleData);
+          hostPlayer.bet(hostPlayer.betAmount);
+          sendMessage({ message: 'hostPlayer.betAmount = ' + hostPlayer.betAmount }, handleData);        
+          hostPlayer.updateBank();
+          sendMessage({message: "hostPlayer.bank = " + hostPlayer.bank}, handleData);
+          functions.gameFunctions.updatePot(pot);
+          functions.gameFunctions.disableControls();
+          sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.enableControls();}" }, handleData);           
+        }       
       } else{
       //Guest Raises  
         guestPlayer.betAmount = parseInt($('#bet-value').val());
-        sendMessage({ message: "alert('" + guestPlayer.name + " raises " + guestPlayer.betAmount + "')" }, handleData);        
-        guestPlayer.bet(guestPlayer.betAmount);
-        sendMessage({ message: 'guestPlayer.betAmount = ' + guestPlayer.betAmount }, handleData); 
-        sendMessage({message: "guestPlayer.endTurn = true"}, handleData);
-        guestPlayer.updateBank();
-        sendMessage({ message: "guestPlayer.bank = " + guestPlayer.bank }, handleData);
-        functions.gameFunctions.updatePot(pot);
-        functions.gameFunctions.disableControls();
-        sendMessage({ message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}" }, handleData);
+        if (guestPlayer.betAmount == 0 || (isNaN(guestPlayer.betAmount) == true)){
+          alert("Can't bet nothing!!")
+        } else{        
+          sendMessage({ message: "alert('" + guestPlayer.name + " raises " + guestPlayer.betAmount + "')" }, handleData);        
+          guestPlayer.bet(guestPlayer.betAmount);
+          sendMessage({ message: 'guestPlayer.betAmount = ' + guestPlayer.betAmount }, handleData); 
+          sendMessage({message: "guestPlayer.endTurn = true"}, handleData);
+          guestPlayer.updateBank();
+          sendMessage({ message: "guestPlayer.bank = " + guestPlayer.bank }, handleData);
+          functions.gameFunctions.updatePot(pot);
+          functions.gameFunctions.disableControls();
+          sendMessage({ message: "if(localStorage.playerType == 'host'){functions.gameFunctions.enableControls();}" }, handleData);
+        }
       }
     }); //END RAISE
     
