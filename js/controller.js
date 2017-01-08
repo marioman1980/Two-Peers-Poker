@@ -11,7 +11,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
       try{
         $('#display-id').append(myId);
         functions.gameFunctions.loadTable('#user-name', '#host-content', '#host-name');
-        console.log(myId); 
+        console.log(myId); //Confirms that ID has been generated
         alert("Give your ID to a friend so they can \"Join\" your game \rID: " + myId);
         localStorage.playerType = 'host';        
       } catch(err){
@@ -71,6 +71,11 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         sendMessage({ message: 'hostPlayer.bank = ' + hostPlayer.bank }, handleData);
         functions.gameFunctions.updatePot(pot); 
         sendMessage({ message: "alert('" + hostPlayer.name + " calls')" }, handleData);
+        
+      /*
+        When a showdown is reached (each player has 5 cards bets are equal),
+        call function to evaluate bot hands and determine winner of hand
+      */
         if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner(); 
         }        
@@ -183,14 +188,14 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     
     
   /* === BUTTONS FOR TESTING === */  
-    $('#btn-send').click(function(){
-      console.log(deck.dealtCards);
-    });
-    
-    $('#btn-eval').click(function(){
-      console.log(hostPlayer.bank);
-      console.log(guestPlayer.bank);
-    });
+//    $('#btn-send').click(function(){
+//      console.log(deck.dealtCards);
+//    });
+//    
+//    $('#btn-eval').click(function(){
+//      console.log(hostPlayer.bank);
+//      console.log(guestPlayer.bank);
+//    });
 
 
   }

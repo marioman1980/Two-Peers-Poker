@@ -21,7 +21,7 @@ define(['jquery'], function($){
     },
  
   /*  When a winner of a hand is determined,
-      this function creits their bank with pot value */
+      this function credits their bank with pot value */
     potToBank: function(winner){
       winner.bank += pot;
       winner.updateBank();
@@ -72,6 +72,7 @@ define(['jquery'], function($){
       }
       sendMessage({ message: "if (localStorage.playerType == 'host') {document.getElementById('start-game').click(); }"}, handleData);
     },
+    
     
   /*  Clear values on both devices,
       ready for next hand */

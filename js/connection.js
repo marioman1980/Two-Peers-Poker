@@ -86,7 +86,8 @@ handleData executes the contents
     
   /*  Sending messages 
       Used throughout to ensure values (pot/bank) are updated on both devices 
-      Also used to show/hide correct content, enable/disable controls*/	  
+      Also used to show/hide correct content, enable/disable controls   
+  */	  
     sendMessage = function(data, handleData){
       conn.send(data);
       handleData(data);      

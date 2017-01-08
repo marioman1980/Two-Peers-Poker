@@ -57,7 +57,8 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         }
       },   //END SELECT CARD
 
-      dealCard: function(faceUp){      
+      dealCard: function(faceUp){  
+      //Ensure a new card is dealt  
         do { dealtCard = deck.selectCard(); }
         while (dealtCard == undefined);  
         
@@ -68,9 +69,11 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
           image = '<img id="guestBack" src="../Two-Peers-Poker/images/allCards/cardBack.jpg">';
           sendMessage({ message: "hostFirstCard = '../Two-Peers-Poker/images/allCards/" + card + ".jpg'" }, handleData);          
         }
-        
+      //Display card images  
         sendMessage({ message: "$('#host-card').append('" + dealtCard.image +"')" }, handleData);        
         sendMessage({ message: "$('#guest-host-card').append('" + image +"')" }, handleData);
+        
+      //Add card to player's hand  
         sendMessage({ message: "playerCard = {value: parseInt('" + value + "'), suit: '" + suit + "'}" }, handleData);
         sendMessage({ message: "hostPlayer.hand.cards.push(playerCard)" }, handleData);
         
