@@ -3,9 +3,7 @@ function Player(){
   this.name = null;
   this.type = null;
   this.hand = new Hand();
-//      this.bank = 100;  
-//      this.betAmount = 0;
-//      this.endTurn = false;
+
 } 
 /*Using prototype, functions don't have to be recreated for each player object */  
 Player.prototype = {
@@ -15,26 +13,11 @@ Player.prototype = {
   setType: function(playerType){
     this.type = playerType;
   },
-//      bet: function(betAmount){
-//        pot += betAmount;
-//        this.bank -= betAmount;
-//      },
+
 // Calls function to give a score to a player's hand
   getScore: function(){
     return (this.hand.evaluateHand());
-  },
-//      reset: function(){
-//        this.endTurn = false;  
-//        this.betAmount = 0;
-//      },
-//      updateBank: function(){
-//        if (this.type == 'host'){
-//          sendMessage({ message: '$(".host-bank").html("' + hostPlayer.bank + '")' }, handleData);
-//        }
-//        else if (this.type == 'guest'){
-//          sendMessage({ message: '$(".guest-bank").html("' + guestPlayer.bank + '")' }, handleData);          
-//        }
-//      }      
+  }     
 }  /* END PLAYER */
 
 /* Instantiate player objects */
@@ -117,9 +100,10 @@ function Hand(){
     var playerCards = this.cards;
   /* Sort cards into ascending order */  
     playerCards.sort(function(a, b){
-      if (a.value < b.value) return -1;
-      if (a.value > b.value) return 1;		
-      return 0;    
+//      if (a.value < b.value) return -1;
+//      if (a.value > b.value) return 1;		
+//      return 0;  
+      return (a.value - b.value);
     });
 
   /* If Ace is necessary for low straight, change value from 14 to 1 */  
@@ -127,9 +111,10 @@ function Hand(){
       playerCards[4].value = 1;
     /* Re-sort cards */  
       playerCards.sort(function(a, b){
-        if (a.value < b.value) return -1;
-        if (a.value > b.value) return 1;		
-        return 0;    
+//        if (a.value < b.value) return -1;
+//        if (a.value > b.value) return 1;		
+//        return 0;  
+        return (a.value - b.value);
       });    
     }
 

@@ -100,7 +100,7 @@ QUnit.module("Card tests", {
       });
     // Two pairs
       QUnit.test("Test for two pairs", function(assert){
-        hand.cards = [ {value: 14, suit: 'C'}, {value: 14, suit: 'D'}, {value: 2, suit: 'S'}, {value: 2, suit: 'D'}, {value: 13, suit: 'H'} ]; 
+        hand.cards = [ {value: 9, suit: 'C'}, {value: 14, suit: 'D'}, {value: 2, suit: 'S'}, {value: 9, suit: 'D'}, {value: 2, suit: 'H'} ]; 
         hand.evaluateHand();
         assert.equal(hand.handName, 'Two Pairs', 'Function evaluates two pairs: ' + hand.handName);
         assert.equal(hand.handScore, 214,  'Score: ' + hand.handScore);
