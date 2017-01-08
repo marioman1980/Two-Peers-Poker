@@ -143,7 +143,11 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
         else if (this.type == 'guest'){
           sendMessage({ message: '$(".guest-bank").html("' + guestPlayer.bank + '")' }, handleData);          
         }
-      }      
+      },
+      resetBank: function(){
+        this.bank = 100;
+        this.betAmount = 0;
+      }
     }  /* END PLAYER */
 
 /* Instantiate player objects */
