@@ -2,6 +2,7 @@ define(['jquery'], function($){
 
 
   gameFunctions = {
+
 /*  Once user has chosen to host or join a game,
     the relevant content is loaded */    
     loadTable: function(userName, table, userNameOutput){
@@ -47,22 +48,22 @@ define(['jquery'], function($){
     //Reveal face down cards  
       sendMessage({ message: "document.getElementById('guestBack').src = hostFirstCard" }, handleData);
       sendMessage({ message: "document.getElementById('hostBack').src = guestFirstCard" }, handleData);
+    //Declare winner  
       if (hostScore > guestScore){
-        sendMessage({ message: "alert(hostPlayer.name + ' wins')" }, handleData);
+        sendMessage({ message: "alert(hostPlayer.name + ' wins with ' + '" + hostPlayer.hand.handName + "'" + ")" }, handleData);
         this.potToBank(hostPlayer);
         sendMessage({ message: "if (" + guestPlayer.bank <= 0 + ") alert('Game Over. Play again?')"}, handleData);
       }
       else{
-        sendMessage({ message: "alert(guestPlayer.name + ' wins')" }, handleData);
+        sendMessage({ message: "alert(guestPlayer.name + ' wins with ' + '" + guestPlayer.hand.handName + "'" + ")" }, handleData);
         this.potToBank(guestPlayer);
       }  
       alert (guestPlayer.bank);
       if ((guestPlayer.bank <= 0) || (hostPlayer.bank <= 0)){
         sendMessage({ message: "alert('Game Over')" }, handleData);
         if (confirm('Play again?') == true){
-          sendMessage({ message: "hostPlayer.bank = 100; hostPlayer.updateBank()" }, handleData);
-          sendMessage({ message: "guestPlayer.bank = 100; guestPlayer.updateBank()" }, handleData);
-          sendMessage({ message: "if (localStorage.playerType == 'host') {document.getElementById('start-game').click(); }"}, handleData);
+          sendMessage({ message: "hostPlayer.resetBank()" }, handleData);
+          sendMessage({ message: "guestPlayer.resetBank()" }, handleData);
         } else{
         //Gracefully closes connection and clears up after itself 
           conn.close();

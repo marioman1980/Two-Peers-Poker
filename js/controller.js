@@ -46,7 +46,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
       sendMessage({ message: '$("#guest-opponent-name").html("' + hostPlayer.name + '")' }, handleData); 
       $('#host-pot').html('Pot: ');  
       sendMessage({ message: '$("#guest-pot").html("Pot: ")' }, handleData); 
-      
+
     //Initial, compulsory bets  
       hostPlayer.bet(10);
       guestPlayer.bet(10);
@@ -184,7 +184,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
     
   /* === BUTTONS FOR TESTING === */  
     $('#btn-send').click(function(){
-      conn.close();
+      console.log(deck.dealtCards);
     });
     
     $('#btn-eval').click(function(){
