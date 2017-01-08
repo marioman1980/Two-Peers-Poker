@@ -60,6 +60,7 @@ define(['jquery', 'connection',  'functions', 'jqueryui'], function($, connectio
       dealCard: function(faceUp){      
         do { dealtCard = deck.selectCard(); }
         while (dealtCard == undefined);  
+        
       /* If faceUp is false, the opponent will not be able to see the card's face */  
         var faceUp = faceUp;
         if (faceUp == true){ image = dealtCard.image; }
