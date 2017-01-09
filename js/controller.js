@@ -88,8 +88,9 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         else if (deck.dealtCards.length == 10){
           functions.gameFunctions.determineWinner(); 
         }              
-        if (deck.dealtCards.length != 10){
+        else if (deck.dealtCards.length != 10){
           deck.dealCard(true);
+          console.log(deck.dealtCards);
         }
         functions.gameFunctions.enableControls();
         sendMessage({ message: "if(localStorage.playerType == 'guest'){functions.gameFunctions.disableControls();}" }, handleData);
