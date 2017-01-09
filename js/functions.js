@@ -59,7 +59,6 @@ define(['jquery'], function($){
         sendMessage({ message: "alert(guestPlayer.name + ' wins with ' + '" + guestPlayer.hand.handName + "'" + ")" }, handleData);
         this.potToBank(guestPlayer);
       }  
-      alert (guestPlayer.bank);
       if ((guestPlayer.bank <= 0) || (hostPlayer.bank <= 0)){
         sendMessage({ message: "alert('Game Over')" }, handleData);
         if (confirm('Play again?') == true){
