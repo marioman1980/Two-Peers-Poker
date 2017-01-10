@@ -16,8 +16,7 @@ define(['jquery', 'connection', 'model', 'functions', 'jqueryui'], function($, c
         localStorage.playerType = 'host';        
       } catch(err){
         if (err == 'ReferenceError: myId is not defined'){
-          //alert('ID not assigned. Please click \'Host\' again.');
-          alert(err);
+          alert('ID not assigned. Please click \'Host\' again.');
         } else alert(err);
       }
     }); 
